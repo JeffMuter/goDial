@@ -1,0 +1,29 @@
+package components
+
+type ButtonVariant string
+
+const (
+    Primary   ButtonVariant = "btn-primary"
+    Secondary ButtonVariant = "btn-secondary"
+    Accent    ButtonVariant = "btn-accent"
+    Ghost     ButtonVariant = "btn-ghost"
+    Link      ButtonVariant = "btn-link"
+)
+
+type ButtonSize string
+
+const (
+    Large  ButtonSize = "btn-lg"
+    Normal ButtonSize = "btn-md"
+    Small  ButtonSize = "btn-sm"
+    Tiny   ButtonSize = "btn-xs"
+)
+
+templ Button(text string, variant ButtonVariant, size ButtonSize) {
+    <button class={ "btn " + string(variant) + " " + string(size) }>
+        { text }
+    </button>
+}
+
+// Example usage:
+// <Button text="Click me" variant={ Primary } size={ Normal }/> 

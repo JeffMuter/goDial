@@ -1,0 +1,27 @@
+{
+  "name": "godial",
+  "version": "1.0.0",
+  "description": "goDial is an app that uses other services to provide a web app that essentially takes a form from a user, which includes: 1) phone number 2) recipient context 3) objective 4) background context",
+  "main": "tailwind.config.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "chmod +x scripts/dev.sh && scripts/dev.sh",
+    "dev:old": "./buildAir.sh",
+    "build": "templ generate && npm run build:css && go build -o bin/goDial cmd/main.go",
+    "build:css": "tailwindcss -i ./static/css/input.css -o ./static/css/output.css",
+    "build:templates": "templ generate",
+    "watch:css": "tailwindcss -i ./static/css/input.css -o ./static/css/output.css --watch",
+    "clean": "rm -rf tmp/ bin/ static/css/output.css",
+    "start": "bin/goDial",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "daisyui": "^5.0.37",
+    "tailwindcss": "^4.1.7"
+  }
+}

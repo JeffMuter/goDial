@@ -1,0 +1,55 @@
+package components
+
+// Simple components using regular CSS - no build process needed!
+
+templ SimpleNavbar() {
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="brand">goDial</a>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/about">About</a>
+                <a href="/login" class="btn btn-primary">Login</a>
+            </nav>
+        </div>
+    </nav>
+}
+
+templ SimpleFooter() {
+    <footer class="footer">
+        <div class="container">
+            <nav>
+                <a href="/about">About us</a>
+                <a href="/contact">Contact</a>
+                <a href="/privacy">Privacy Policy</a>
+            </nav>
+            <p>Copyright © 2024 - All rights reserved by goDial</p>
+        </div>
+    </footer>
+}
+
+templ SimpleButton(text string, isPrimary bool, isLarge bool) {
+    <button class={ "btn", templ.KV("btn-primary", isPrimary), templ.KV("btn-large", isLarge) }>
+        { text }
+    </button>
+}
+
+templ SimpleCard(title string) {
+    <div class="card">
+        <h2>{ title }</h2>
+        <form>
+            <div class="form-group">
+                <label>Your Message</label>
+                <textarea name="message" class="form-control" placeholder="Type your message here..."></textarea>
+            </div>
+            @SimpleButton("Send Message", true, false)
+        </form>
+    </div>
+}
+
+templ SimpleInput(label string, inputType string, name string, placeholder string) {
+    <div class="form-group">
+        <label>{ label }</label>
+        <input type={ inputType } name={ name } placeholder={ placeholder } class="form-control"/>
+    </div>
+} 

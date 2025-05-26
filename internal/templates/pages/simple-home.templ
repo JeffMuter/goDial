@@ -1,0 +1,26 @@
+package pages
+
+import (
+    "goDial/internal/templates/components"
+    "goDial/internal/templates/layouts"
+)
+
+templ SimpleHome() {
+    @layouts.Simple("Home") {
+        <section class="hero">
+            <div class="container">
+                <h1>Welcome to goDial</h1>
+                <p>Your new favorite application is ready to go!</p>
+                @components.SimpleButton("Get Started", true, true)
+            </div>
+        </section>
+        
+        <div class="container">
+            <div class="grid">
+                @components.SimpleCard("Quick Message")
+                @components.SimpleCard("Send Feedback") 
+                @components.SimpleCard("Contact Us")
+            </div>
+        </div>
+    }
+} 

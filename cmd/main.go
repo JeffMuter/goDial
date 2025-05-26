@@ -2,21 +2,16 @@ package main
 
 import (
 	"log"
+	"net/http"
 
-	"goDial/internal/database"
+	"goDial/internal/router"
 )
 
 func main() {
-	// Initialize database
-	dbPath := database.GetDBPath()
-	db, err := database.InitDB(dbPath)
-	if err != nil {
-		log.Fatalf("Failed to initialize database: %v", err)
+	r := router.NewRouter()
+
+	log.Println("Starting server on :8080")
+	if err := http.ListenAndServe(":8080", r); err != nil {
+		log.Fatal(err)
 	}
-	defer db.Close()
-
-	log.Printf("Database initialized successfully at: %s", dbPath)
-	log.Println("goDial application started")
-
-	// TODO: Add web server and other application logic here
 }

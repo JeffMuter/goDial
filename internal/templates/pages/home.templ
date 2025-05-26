@@ -1,0 +1,27 @@
+package pages
+
+import (
+    "goDial/internal/templates/components"
+    "goDial/internal/templates/layouts"
+)
+
+templ Home() {
+    @layouts.Base("Home") {
+        <div class="hero min-h-screen bg-base-200">
+            <div class="hero-content text-center">
+                <div class="max-w-md">
+                    <h1 class="text-5xl font-bold">Welcome to goDial</h1>
+                    <p class="py-6">Your new favorite application is ready to go!</p>
+                    @components.Button("Get Started", components.Primary, components.Large)
+                </div>
+            </div>
+        </div>
+        <div class="container mx-auto p-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @components.Card("Quick Message")
+                @components.Card("Send Feedback") 
+                @components.Card("Contact Us")
+            </div>
+        </div>
+    }
+} 
