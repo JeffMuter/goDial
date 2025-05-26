@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 # goDial Development Environment Manager
-# Following the modular, easy-to-read philosophy
 
 set -e
 
@@ -18,7 +17,7 @@ NC='\033[0m' # No Color
 # Function: Check if we're in nix-shell
 check_environment() {
     if [ -z "$IN_NIX_SHELL" ]; then
-        echo -e "${YELLOW}📦 Entering nix-shell environment...${NC}"
+        echo -e "${YELLOW} Entering nix-shell environment...${NC}"
         exec nix-shell --run "$0 $*"
     fi
     echo -e "${GREEN}✓ Running in nix-shell environment${NC}"
@@ -26,7 +25,7 @@ check_environment() {
 
 # Function: Clean up existing processes
 cleanup() {
-    echo -e "${BLUE}🧹 Cleaning up existing processes...${NC}"
+    echo -e "${BLUE} Cleaning up existing processes...${NC}"
     pkill air 2>/dev/null || true
     pkill tailwindcss 2>/dev/null || true
     echo -e "${GREEN}✓ Cleanup complete${NC}"
@@ -34,7 +33,7 @@ cleanup() {
 
 # Function: Generate templates
 generate_templates() {
-    echo -e "${BLUE}🔧 Generating templates...${NC}"
+    echo -e "${BLUE} Generating templates...${NC}"
     if templ generate; then
         echo -e "${GREEN}✓ Templates generated successfully${NC}"
     else
@@ -45,7 +44,7 @@ generate_templates() {
 
 # Function: Build CSS
 build_css() {
-    echo -e "${BLUE}🎨 Building Tailwind CSS...${NC}"
+    echo -e "${BLUE} Building Tailwind CSS...${NC}"
     if npm run build:css; then
         echo -e "${GREEN}✓ CSS built successfully${NC}"
     else
@@ -56,7 +55,7 @@ build_css() {
 
 # Function: Start development server
 start_dev_server() {
-    echo -e "${BLUE}🔥 Starting development server with Air...${NC}"
+    echo -e "${BLUE} Starting development server with Air...${NC}"
     
     # Start air in background
     air &
@@ -66,16 +65,16 @@ start_dev_server() {
     sleep 2
     
     # Start CSS watcher
-    echo -e "${BLUE}👀 Starting CSS watcher...${NC}"
+    echo -e "${BLUE} Starting CSS watcher...${NC}"
     npm run watch:css &
     CSS_PID=$!
     
     echo -e "${GREEN}✓ Development environment ready!${NC}"
-    echo -e "${YELLOW}📍 Server running at: http://localhost:8080${NC}"
-    echo -e "${YELLOW}📍 Air process ID: $AIR_PID${NC}"
-    echo -e "${YELLOW}📍 CSS watcher ID: $CSS_PID${NC}"
+    echo -e "${YELLOW}✓ Server running at: http://localhost:8080${NC}"
+    echo -e "${YELLOW} Air process ID: $AIR_PID${NC}"
+    echo -e "${YELLOW} CSS watcher ID: $CSS_PID${NC}"
     echo ""
-    echo -e "${BLUE}🛑 Press Ctrl+C to stop all processes${NC}"
+    echo -e "${BLUE} Press Ctrl+C to stop all processes${NC}"
     
     # Wait for interrupt
     trap "cleanup; exit 0" INT TERM

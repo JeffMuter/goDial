@@ -20,9 +20,9 @@ COVERAGE_DIR="coverage"
 COVERAGE_FILE="$COVERAGE_DIR/coverage.out"
 COVERAGE_HTML="$COVERAGE_DIR/coverage.html"
 
-echo -e "${BLUE}🔧 Test Configuration:${NC}"
-echo -e "${BLUE}   Coverage directory: $COVERAGE_DIR${NC}"
-echo -e "${BLUE}   Coverage file: $COVERAGE_FILE${NC}"
+echo -e "${BLUE} Test Configuration:${NC}"
+echo -e "${BLUE} Coverage directory: $COVERAGE_DIR${NC}"
+echo -e "${BLUE} Coverage file: $COVERAGE_FILE${NC}"
 echo ""
 
 # Create coverage directory
@@ -31,12 +31,12 @@ mkdir -p "$COVERAGE_DIR"
 # Clean up any existing coverage files
 rm -f "$COVERAGE_FILE" "$COVERAGE_HTML"
 
-echo -e "${YELLOW}🧹 Cleaning up previous test artifacts...${NC}"
+echo -e "${YELLOW} Cleaning up previous test artifacts...${NC}"
 
 # Clean test cache
 go clean -testcache
 
-echo -e "${YELLOW}🔍 Running tests with coverage...${NC}"
+echo -e "${YELLOW} Running tests with coverage...${NC}"
 echo ""
 
 # Run tests with coverage
@@ -49,7 +49,7 @@ if go test -v -race -coverprofile="$COVERAGE_FILE" -covermode=atomic ./...; then
     echo -e "${YELLOW}📊 Generating coverage report...${NC}"
     
     # Show coverage summary
-    echo -e "${BLUE}📈 Coverage Summary:${NC}"
+    echo -e "${BLUE} Coverage Summary:${NC}"
     go tool cover -func="$COVERAGE_FILE" | tail -1
     
     # Generate HTML coverage report
@@ -58,7 +58,7 @@ if go test -v -race -coverprofile="$COVERAGE_FILE" -covermode=atomic ./...; then
     
     # Show detailed coverage by package
     echo ""
-    echo -e "${BLUE}📋 Coverage by Package:${NC}"
+    echo -e "${BLUE} Coverage by Package:${NC}"
     go tool cover -func="$COVERAGE_FILE" | grep -v "total:" | sort -k3 -nr
     
     # Check coverage threshold (80%)
@@ -87,7 +87,7 @@ else
 fi
 
 echo ""
-echo -e "${BLUE}📁 Test Artifacts:${NC}"
+echo -e "${BLUE} Test Artifacts:${NC}"
 echo "  • Coverage data: $COVERAGE_FILE"
 echo "  • HTML report: $COVERAGE_HTML"
 echo "  • Open HTML report: open $COVERAGE_HTML (macOS) or xdg-open $COVERAGE_HTML (Linux)"
