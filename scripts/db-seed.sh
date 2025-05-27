@@ -17,7 +17,7 @@ NC='\033[0m' # No Color
 
 DB_PATH="${GODIAL_DB_PATH:-goDial.db}"
 
-echo -e "${BLUE}📊 Database: $DB_PATH${NC}"
+echo -e "${BLUE} Database: $DB_PATH${NC}"
 echo ""
 
 # Check if database file exists
@@ -53,11 +53,11 @@ echo ""
 # Insert test users
 echo -e "${BLUE}👥 Creating test users...${NC}"
 sqlite3 "$DB_PATH" << EOF
-INSERT OR IGNORE INTO users (email, name) VALUES 
-    ('alice@example.com', 'Alice Johnson'),
-    ('bob@example.com', 'Bob Smith'),
-    ('charlie@example.com', 'Charlie Brown'),
-    ('diana@example.com', 'Diana Prince');
+INSERT OR IGNORE INTO users (email, name, minutes) VALUES 
+    ('alice@example.com', 'Alice Johnson', 0),
+    ('bob@example.com', 'Bob Smith', 10),
+    ('charlie@example.com', 'Charlie Brown', 1000),
+    ('diana@example.com', 'Diana Prince', 1);
 EOF
 
 # Get user IDs for foreign key references

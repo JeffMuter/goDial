@@ -46,15 +46,31 @@ func Home() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"hero min-h-screen bg-base-200\"><div class=\"hero-content text-center\"><div class=\"max-w-md\"><h1 class=\"text-5xl font-bold\">Welcome to goDial</h1><p class=\"py-6\">Your new favorite application is ready to go!</p>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!-- Hero Section --> <section class=\"hero min-h-[80vh] bg-gradient-to-br from-base-200 to-base-300\"><div class=\"hero-content text-center\"><div class=\"max-w-4xl\"><h1 class=\"text-5xl md:text-7xl font-bold text-primary mb-6\">Welcome to <span class=\"text-accent\">goDial</span></h1><div class=\"flex flex-col gap-4 justify-center\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = components.Button("Get Started", components.Primary, components.Large).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = components.Input("Recipient Phone Number: ", "text", "recipientPhoneNumber", "phone number ex: 3336664444").Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div></div><div class=\"container mx-auto p-8\"><div class=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6\">")
+			templ_7745c5c3_Err = components.Input("Recipient Name & Info About Them: ", "text", "recipientContext", "name, details the ai agent may want to know about them").Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.Input("Objective:", "text", "objective", "Call them and say happy birthday for me!").Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.Input("Other Context:", "text", "otherContext", "her birthday is 10/11/1992. We met in middle school, etc..").Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = components.Button("Begin...", "/beginCallProcedure", true, true).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div></div></section><!-- Features Section --> <section class=\"py-20 bg-base-100\"><div class=\"container mx-auto px-4\"><div class=\"text-center mb-16\"><h2 class=\"text-4xl font-bold text-primary mb-4\">Get Started</h2><p class=\"text-xl text-base-content/70 max-w-2xl mx-auto\">Choose from our quick actions to get started with goDial</p></div><div class=\"grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -70,13 +86,13 @@ func Home() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div></section>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return templ_7745c5c3_Err
 		})
-		templ_7745c5c3_Err = layouts.Base("Home").Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = layouts.App("goDial | Home").Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

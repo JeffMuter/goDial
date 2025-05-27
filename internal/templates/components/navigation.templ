@@ -1,0 +1,51 @@
+package components
+
+templ Navbar() {
+<div class="navbar bg-base-200 shadow-lg border-b border-base-300">
+    <div class="navbar-start">
+        <div class="dropdown">
+            <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+                </svg>
+            </div>
+            <ul tabindex="0"
+                class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-200 rounded-box w-52 border border-base-300">
+                <li><a href="/" class="hover:bg-primary hover:text-primary-content">Home</a></li>
+                <li><a href="/about" class="hover:bg-primary hover:text-primary-content">About</a></li>
+                <li><a href="/stripePage" class="hover:bg-accent hover:text-accent-content">Add Minutes</a></li>
+                <li><a href="/stripePage" class="hover:bg-accent hover:text-accent-content">Minutes: QUERYFORMINUTESHERE</a></li>
+            </ul>
+        </div>
+        <a href="/" class="btn btn-ghost text-xl text-primary font-bold">goDial</a>
+    </div>
+    <div class="navbar-center hidden lg:flex">
+        <ul class="menu menu-horizontal px-1 space-x-2">
+            <li><a href="/" class="hover:bg-primary hover:text-primary-content rounded-lg transition-colors">Home</a>
+            </li>
+            <li><a href="/about"
+                    class="hover:bg-primary hover:text-primary-content rounded-lg transition-colors">About</a></li>
+            <li><a href="/stripePage" class="hover:bg-accent hover:text-accent-content rounded-lg transition-colors">Add
+                    Minutes</a></li>
+        </ul>
+    </div>
+    <div class="navbar-end">
+        <a href="/login" class="btn btn-primary">Login</a>
+    </div>
+</div>
+}
+
+templ Footer() {
+<footer class="footer footer-center p-10 bg-base-200 text-base-content border-t border-base-300 mt-auto">
+    <nav class="grid grid-flow-col gap-4">
+        <a href="/about" class="link link-hover hover:text-primary">About us</a>
+        <a href="/contact" class="link link-hover hover:text-primary">Contact</a>
+        <a href="/privacy" class="link link-hover hover:text-primary">Privacy Policy</a>
+    </nav>
+    <aside>
+        <p class="text-base-content/70">Copyright © 2024 - All rights reserved by <span
+                class="text-primary font-semibold">goDial</span></p>
+    </aside>
+</footer>
+}

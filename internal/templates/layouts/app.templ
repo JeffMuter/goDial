@@ -1,0 +1,97 @@
+package layouts
+
+import "goDial/internal/templates/components"
+
+templ App(title string) {
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{ title } - goDial</title>
+    <link href="/static/css/output.css" rel="stylesheet" />
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+    <!-- Live reload script for development -->
+    <script>
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            let eventSource;
+            let reconnectAttempts = 0;
+            const maxReconnectAttempts = 5;
+            
+            function checkServerHealth() {
+                return fetch('/health', { 
+                    method: 'GET',
+                    cache: 'no-cache'
+                })
+                .then(response => response.ok)
+                .catch(() => false);
+            }
+            
+            function waitForServerAndReload() {
+                let attempts = 0;
+                const maxAttempts = 30; // 30 seconds max wait
+                
+                function tryReload() {
+                    attempts++;
+                    checkServerHealth().then(isHealthy => {
+                        if (isHealthy) {
+                            console.log('Server is ready, reloading page...');
+                            window.location.reload();
+                        } else if (attempts < maxAttempts) {
+                            // Server not ready yet, try again in 500ms
+                            setTimeout(tryReload, 500);
+                        } else {
+                            console.log('Server took too long to restart, reloading anyway...');
+                            window.location.reload();
+                        }
+                    });
+                }
+                
+                // Start checking immediately
+                tryReload();
+            }
+            
+            function connectToLiveReload() {
+                eventSource = new EventSource('/live-reload');
+                
+                eventSource.onopen = function() {
+                    console.log('Live reload connected');
+                    reconnectAttempts = 0;
+                };
+                
+                eventSource.onmessage = function(event) {
+                    if (event.data === 'connected') {
+                        console.log('Live reload ready');
+                    } else if (event.data === 'heartbeat') {
+                        // Just a heartbeat, do nothing
+                    }
+                };
+                
+                eventSource.onerror = function() {
+                    console.log('Live reload connection lost, waiting for server restart...');
+                    eventSource.close();
+                    
+                    // When the connection drops, it means the server restarted
+                    // Wait for the server to be healthy before reloading
+                    waitForServerAndReload();
+                };
+            }
+            
+            // Start the connection
+            connectToLiveReload();
+        }
+    </script>
+</head>
+
+<body class="min-h-screen bg-base-100 text-base-content flex flex-col">
+    @components.Navbar()
+    <main class="flex-1">
+        { children... }
+    </main>
+    @components.Footer()
+</body>
+
+</html>
+} 

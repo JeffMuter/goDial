@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-# goDial Simple Build - No npm needed!
-# Following the modular, easy-to-read philosophy
+# goDial Build
 
 echo "goDial Build"
 echo "==============================="

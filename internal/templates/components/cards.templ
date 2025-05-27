@@ -1,0 +1,36 @@
+package components
+
+templ Card(title string) {
+<div class="card bg-base-200 shadow-xl border border-base-300 hover:shadow-2xl transition-all duration-300 hover:scale-105">
+    <div class="card-body">
+        <h2 class="card-title text-primary text-2xl mb-4">{ title }</h2>
+        <form class="space-y-4">
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text text-base-content/80">Your Message</span>
+                </label>
+                <textarea 
+                    name="message" 
+                    class="textarea textarea-bordered bg-base-100 border-base-300 focus:border-primary focus:outline-none h-32 resize-none" 
+                    placeholder="Type your message here...">
+                </textarea>
+            </div>
+            <div class="card-actions justify-end">
+                @Button("Send Message", "/???", true, false)
+            </div>
+        </form>
+    </div>
+</div>
+}
+
+templ SimpleCard(title string) {
+<div class="card bg-base-200 shadow-xl border border-base-300 hover:shadow-2xl transition-all duration-300 hover:scale-105">
+    <div class="card-body">
+        <h2 class="card-title text-primary text-xl mb-3">{ title }</h2>
+        <p class="text-base-content/70">This is a simple card component for { title }.</p>
+        <div class="card-actions justify-end mt-4">
+            <button class="btn btn-outline btn-primary btn-sm">Learn More</button>
+        </div>
+    </div>
+</div>
+} 

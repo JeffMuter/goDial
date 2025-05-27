@@ -1,0 +1,116 @@
+package pages
+
+import (
+"fmt"
+"goDial/internal/templates/components"
+"goDial/internal/templates/layouts"
+)
+
+templ Stripe(userMinutes int) {
+@layouts.App("goDial | Stripe") {
+<!-- Hero Section -->
+<section class="hero min-h-[60vh] bg-gradient-to-br from-base-200 to-base-300">
+	<!-- hi -->
+	<div class="hero-content text-center">
+		<div class="max-w-4xl">
+			<h1 class="text-4xl md:text-6xl font-bold text-primary mb-6">
+				<span class="text-accent">Stripe</span> Payments
+			</h1>
+			<div class="bg-base-200 rounded-2xl p-8 border border-base-300 shadow-xl mb-8">
+				<p class="text-lg text-base-content/80 mb-4">
+					Pay here for minutes. When your minutes hit 0, the AI will hang up a call, and
+					be unable to add more until more minutes are added.
+				</p>
+				<p class="text-base text-base-content/70 mb-6">
+					Purchase minutes in increments of 10, @ a rate of $0.50 / minute.
+				</p>
+				<div class="stat bg-primary/10 rounded-xl border border-primary/20">
+					<div class="stat-title text-primary">Minutes Remaining</div>
+					<div class="stat-value text-primary">{ fmt.Sprint(userMinutes) }</div>
+					<div class="stat-desc text-primary/70">Available for calls</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Payment Form -->
+<section class="py-16 bg-base-100">
+	<div class="container mx-auto px-4 max-w-2xl">
+		<div class="card bg-base-200 shadow-2xl border border-base-300">
+			<div class="card-body">
+				<h2 class="card-title text-2xl text-primary mb-6 justify-center">Purchase Minutes</h2>
+				<form class="space-y-6"
+					x-data="{quantity: 0, price: 5, get total() {return this.quantity * this.price}}">
+					<div class="form-control">
+						<label class="label">
+							<span class="label-text text-lg font-semibold">Select
+								Minutes:</span>
+						</label>
+						<div
+							class="flex items-center justify-center space-x-6 bg-base-100 rounded-xl p-6 border border-base-300">
+							<button type="button"
+								@click="quantity = Math.max(0, quantity - 10)"
+								class="btn btn-circle btn-outline btn-primary">
+								<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
+									fill="none" viewBox="0 0 24 24"
+									stroke="currentColor">
+									<path stroke-linecap="round"
+										stroke-linejoin="round" stroke-width="2"
+										d="M20 12H4" />
+								</svg>
+							</button>
+							<div class="text-center">
+								<div class="text-3xl font-bold text-primary"
+									x-text="quantity"></div>
+								<div class="text-sm text-base-content/70">minutes</div>
+							</div>
+							<button type="button" @click="quantity+=10"
+								class="btn btn-circle btn-primary">
+								<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
+									fill="none" viewBox="0 0 24 24"
+									stroke="currentColor">
+									<path stroke-linecap="round"
+										stroke-linejoin="round" stroke-width="2"
+										d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+								</svg>
+							</button>
+						</div>
+					</div>
+
+					<div class="divider"></div>
+
+					<div class="bg-accent/10 rounded-xl p-6 border border-accent/20">
+						<div class="flex justify-between items-center">
+							<span class="text-lg font-semibold">Total Price:</span>
+							<span class="text-2xl font-bold text-accent"
+								x-text="'$' + (quantity * 0.5).toFixed(2)"></span>
+						</div>
+					</div>
+
+					<div class="card-actions justify-center">
+						<button type="submit" class="btn btn-accent btn-lg w-full">
+							Purchase Minutes
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Additional Features -->
+<section class="py-16 bg-base-200">
+	<div class="container mx-auto px-4">
+		<div class="text-center mb-12">
+			<h2 class="text-3xl font-bold text-primary mb-4">More Actions</h2>
+		</div>
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+			@components.SimpleCard("Quick Message")
+			@components.SimpleCard("Send Feedback")
+			@components.SimpleCard("Contact Us")
+		</div>
+	</div>
+</section>
+}
+}

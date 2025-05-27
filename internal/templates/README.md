@@ -7,8 +7,16 @@ This directory contains a clean, modular template structure designed for easy re
 ```
 internal/templates/
 ├── components/     # Reusable UI components
+│   ├── navigation.templ  # Navigation components (Navbar, Footer)
+│   ├── forms.templ       # Form components (Button, Input)
+│   └── cards.templ       # Card components (Card, SimpleCard)
 ├── layouts/        # Page layouts and wrappers
+│   ├── base.templ        # Base layout
+│   ├── home.templ        # Home page layout
+│   └── simple.templ      # Simple layout with Alpine.js
 └── pages/          # Individual page templates
+    ├── home.templ        # Homepage
+    └── stripe.templ      # Stripe payment page
 ```
 
 ## Components
@@ -30,75 +38,105 @@ The main layout wrapper that includes:
 }
 ```
 
-### UI Components
+#### `layouts/home.templ`
+Home page specific layout with same structure as base layout.
 
-#### `components/navbar.templ`
+#### `layouts/simple.templ`
+Simple layout that includes Alpine.js for interactive components.
+
+### Navigation Components (`components/navigation.templ`)
+
+#### `components.Navbar()`
 Responsive navigation bar with:
-- Mobile hamburger menu
-- Desktop navigation links
-- Brand logo
+- Brand logo linking to home
+- Navigation links (Home, About)
 - Login button
 
-#### `components/footer.templ`
+#### `components.Footer()`
 Simple footer with:
-- Navigation links
+- Navigation links (About, Contact, Privacy)
 - Copyright information
 
-#### `components/button.templ`
-Flexible button component with variants and sizes:
-- Variants: Primary, Secondary, Accent, Ghost, Link
-- Sizes: Large, Normal, Small, Tiny
+### Form Components (`components/forms.templ`)
+
+#### `components.Button(text string, isPrimary bool, isLarge bool)`
+Flexible button component with:
+- Customizable text
+- Primary/secondary styling
+- Large/normal sizing
+- CSS class composition using `templ.KV`
 
 **Usage:**
 ```go
-@components.Button("Click Me", components.Primary, components.Large)
+@components.Button("Click Me", "/???" true, false)  // Primary, normal size
+@components.Button("Large Button", "/???" true, true)  // Primary, large size
 ```
 
-#### `components/input.templ`
-Comprehensive input components:
-- Input types: Text, Email, Password, Number, Tel, URL
-- Sizes: Large, Normal, Small, Tiny
-- Variants: Primary, Secondary, Accent, Ghost, Bordered
-- Both standalone and labeled versions
-- Textarea support
+#### `components.Input(label string, inputType string, name string, placeholder string)`
+Form input component with:
+- Customizable label
+- Input type (text, email, password, etc.)
+- Name attribute for form handling
+- Placeholder text
+- Consistent styling with form-control class
 
 **Usage:**
 ```go
-// Simple input
-@components.Input(components.Email, "Enter email", "email", components.InputBordered, components.InputNormal)
-
-// Input with label
-@components.InputWithLabel("Email Address", components.Email, "Enter email", "email", components.InputBordered, components.InputNormal)
-
-// Textarea with label
-@components.TextareaWithLabel("Message", "Type your message...", "message", 4)
+@components.Input("Email", "email", "user_email", "Enter your email")
 ```
 
-#### `components/card.templ`
-Card component for content display with:
-- Title
-- Form with textarea input
-- Action button
+### Card Components (`components/cards.templ`)
+
+#### `components.Card(title string)`
+Interactive card component with:
+- Customizable title
+- Built-in form with textarea
+- Send message button
+- Consistent card styling
+
+**Usage:**
+```go
+@components.Card("Contact Form")
+```
+
+#### `components.SimpleCard(title string)`
+Simple display card component with:
+- Customizable title
+- Basic content display
+- Minimal styling
+
+**Usage:**
+```go
+@components.SimpleCard("Feature Title")
+```
 
 ## Pages
 
 #### `pages/home.templ`
 Homepage template featuring:
 - Hero section with call-to-action
-- Grid of feature cards
-- Proper component composition
+- Grid of feature cards using Card components
+- Uses Home layout
+
+#### `pages/stripe.templ`
+Stripe payment page featuring:
+- Payment form with Alpine.js interactivity
+- User minutes display
+- Simple cards for additional features
+- Uses Simple layout
 
 ## Design Philosophy
 
-1. **Modularity**: Each component has a single responsibility
+1. **Modularity**: Components are organized by functionality (navigation, forms, cards)
 2. **Reusability**: Components accept parameters for customization
 3. **Consistency**: Standardized naming and structure across components
-4. **Flexibility**: Type-safe variants and sizes for styling
+4. **Flexibility**: Boolean flags and string parameters for styling variations
 5. **Readability**: Clear, semantic HTML with utility-first CSS classes
+6. **Separation of Concerns**: Related components grouped in dedicated files
 
 ## Development Workflow
 
-1. **Generate templates**: `templ generate`
+1. **Generate templates**: `templ generate` or `go run github.com/a-h/templ/cmd/templ@latest generate`
 2. **Build application**: `go build -o bin/goDial cmd/main.go`
 3. **Run with hot reload**: `./buildAir.sh`
 
@@ -106,7 +144,9 @@ Homepage template featuring:
 
 - Always use `@` prefix for component calls
 - Use `{ children... }` for content injection in layouts
-- Define types for component variants to ensure type safety
+- Group related components in the same file (navigation, forms, cards)
 - Keep components focused on single responsibilities
 - Use descriptive parameter names
-- Follow DaisyUI class conventions for consistency 
+- Follow consistent CSS class conventions
+- Use `templ.KV` for conditional CSS classes
+- Import specific component files as needed: `"goDial/internal/templates/components"`

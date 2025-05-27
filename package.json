@@ -12,8 +12,8 @@
     "build": "templ generate && npm run build:css && go build -o bin/goDial cmd/main.go",
     "build:css": "tailwindcss -i ./static/css/input.css -o ./static/css/output.css",
     "build:templates": "templ generate",
-    "watch:css": "tailwindcss -i ./static/css/input.css -o ./static/css/output.css --watch",
     "clean": "rm -rf tmp/ bin/ static/css/output.css",
+    "cleanup-port": "chmod +x scripts/cleanup-port.sh && scripts/cleanup-port.sh",
     "start": "bin/goDial",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,5 +23,8 @@
   "devDependencies": {
     "daisyui": "^5.0.37",
     "tailwindcss": "^4.1.7"
-  }
+  },
+  "browserslist": [
+    "defaults"
+  ]
 }

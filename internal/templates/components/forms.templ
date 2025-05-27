@@ -1,0 +1,16 @@
+package components
+
+
+templ Input(label string, inputType string, name string, placeholder string) {
+<div class="form-control w-full max-w-xl mb-8">
+    <label class="label text-2xl text-red-400 mb-4">
+        <span class="label-text text-base-content/80">{ label }</span>
+    </label>
+    <input 
+        type={ inputType } 
+        name={ name } 
+        placeholder={ placeholder } 
+        class="input input-bordered bg-base-100 border-base-300 focus:border-primary focus:outline-none w-full" 
+    />
+</div>
+} 

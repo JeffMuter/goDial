@@ -24,3 +24,7 @@ RETURNING *;
 -- name: DeleteUser :exec
 DELETE FROM users
 WHERE id = ?; 
+
+-- name: GetUserMinutes :one
+SELECT minutes FROM users
+WHERE email = ?;

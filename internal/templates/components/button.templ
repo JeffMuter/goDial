@@ -1,29 +1,43 @@
 package components
 
-type ButtonVariant string
-
-const (
-    Primary   ButtonVariant = "btn-primary"
-    Secondary ButtonVariant = "btn-secondary"
-    Accent    ButtonVariant = "btn-accent"
-    Ghost     ButtonVariant = "btn-ghost"
-    Link      ButtonVariant = "btn-link"
-)
-
-type ButtonSize string
-
-const (
-    Large  ButtonSize = "btn-lg"
-    Normal ButtonSize = "btn-md"
-    Small  ButtonSize = "btn-sm"
-    Tiny   ButtonSize = "btn-xs"
-)
-
-templ Button(text string, variant ButtonVariant, size ButtonSize) {
-    <button class={ "btn " + string(variant) + " " + string(size) }>
-        { text }
-    </button>
+templ Button(text string, route string, isPrimary bool, isNewTab bool) {
+    if route != "" {
+        if isNewTab {
+            <a 
+                class={ 
+                    "btn transition-all duration-200 hover:scale-105 inline-block text-center", 
+                    templ.KV("bg-primary", isPrimary),
+                    templ.KV("bg-secondary", !isPrimary),
+                    templ.KV("shadow-lg hover:shadow-xl", isPrimary)
+                } 
+                href={ templ.URL(route) }
+                target="_blank"
+            >
+                { text }
+            </a>
+        } else {
+            <a 
+                class={ 
+                    "btn transition-all duration-200 hover:scale-105 inline-block text-center", 
+                    templ.KV("bg-primary", isPrimary),
+                    templ.KV("bg-secondary", !isPrimary),
+                    templ.KV("shadow-lg hover:shadow-xl", isPrimary)
+                } 
+                href={ templ.URL(route) }
+            >
+                { text }
+            </a>
+        }
+    } else {
+        <button 
+            class={ 
+                "btn transition-all duration-200 hover:scale-105", 
+                templ.KV("bg-primary", isPrimary),
+                templ.KV("bg-secondary", !isPrimary),
+                templ.KV("shadow-lg hover:shadow-xl", isPrimary)
+            }
+        >
+            { text }
+        </button>
+    }
 }
-
-// Example usage:
-// <Button text="Click me" variant={ Primary } size={ Normal }/> 
