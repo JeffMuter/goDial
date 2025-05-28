@@ -18,6 +18,7 @@ type Querier interface {
 	GetCall(ctx context.Context, id int64) (Call, error)
 	GetUser(ctx context.Context, id int64) (User, error)
 	GetUserByEmail(ctx context.Context, email string) (User, error)
+	GetUserMinutes(ctx context.Context, email string) (interface{}, error)
 	ListCallsByStatus(ctx context.Context, status sql.NullString) ([]Call, error)
 	ListCallsByUser(ctx context.Context, userID int64) ([]Call, error)
 	ListUsers(ctx context.Context) ([]User, error)

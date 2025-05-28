@@ -12,7 +12,7 @@ import (
 const createUser = `-- name: CreateUser :one
 INSERT INTO users (email, name)
 VALUES (?, ?)
-RETURNING id, email, name, created_at, updated_at
+RETURNING id, email, name, created_at, updated_at, minutes
 `
 
 type CreateUserParams struct {
@@ -29,6 +29,7 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 		&i.Name,
 		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.Minutes,
 	)
 	return i, err
 }
@@ -44,7 +45,7 @@ func (q *Queries) DeleteUser(ctx context.Context, id int64) error {
 }
 
 const getUser = `-- name: GetUser :one
-SELECT id, email, name, created_at, updated_at FROM users
+SELECT id, email, name, created_at, updated_at, minutes FROM users
 WHERE id = ?
 `
 
@@ -57,12 +58,13 @@ func (q *Queries) GetUser(ctx context.Context, id int64) (User, error) {
 		&i.Name,
 		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.Minutes,
 	)
 	return i, err
 }
 
 const getUserByEmail = `-- name: GetUserByEmail :one
-SELECT id, email, name, created_at, updated_at FROM users
+SELECT id, email, name, created_at, updated_at, minutes FROM users
 WHERE email = ?
 `
 
@@ -75,12 +77,25 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (User, error
 		&i.Name,
 		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.Minutes,
 	)
 	return i, err
 }
 
+const getUserMinutes = `-- name: GetUserMinutes :one
+SELECT minutes FROM users
+WHERE email = ?
+`
+
+func (q *Queries) GetUserMinutes(ctx context.Context, email string) (interface{}, error) {
+	row := q.db.QueryRowContext(ctx, getUserMinutes, email)
+	var minutes interface{}
+	err := row.Scan(&minutes)
+	return minutes, err
+}
+
 const listUsers = `-- name: ListUsers :many
-SELECT id, email, name, created_at, updated_at FROM users
+SELECT id, email, name, created_at, updated_at, minutes FROM users
 ORDER BY created_at DESC
 `
 
@@ -99,6 +114,7 @@ func (q *Queries) ListUsers(ctx context.Context) ([]User, error) {
 			&i.Name,
 			&i.CreatedAt,
 			&i.UpdatedAt,
+			&i.Minutes,
 		); err != nil {
 			return nil, err
 		}
@@ -117,7 +133,7 @@ const updateUser = `-- name: UpdateUser :one
 UPDATE users
 SET name = ?, updated_at = CURRENT_TIMESTAMP
 WHERE id = ?
-RETURNING id, email, name, created_at, updated_at
+RETURNING id, email, name, created_at, updated_at, minutes
 `
 
 type UpdateUserParams struct {
@@ -134,6 +150,7 @@ func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (User, e
 		&i.Name,
 		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.Minutes,
 	)
 	return i, err
 }

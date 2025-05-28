@@ -35,4 +35,5 @@ type User struct {
 	Name      string       `json:"name"`
 	CreatedAt sql.NullTime `json:"created_at"`
 	UpdatedAt sql.NullTime `json:"updated_at"`
+	Minutes   interface{}  `json:"minutes"`
 }
