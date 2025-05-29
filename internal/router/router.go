@@ -2,12 +2,13 @@ package router
 
 import (
 	"fmt"
+	"goDial/internal/database"
 	"net/http"
 	"os"
 	"time"
 )
 
-func NewRouter() http.Handler {
+func NewRouter(db *database.DB) http.Handler {
 	mux := http.NewServeMux()
 
 	// Health check endpoint
@@ -22,7 +23,7 @@ func NewRouter() http.Handler {
 
 	// Routes
 	mux.HandleFunc("/", handleHomePage)
-	mux.HandleFunc("/stripePage", handleStripePage)
+	mux.HandleFunc("/stripePage", handleStripePage(db))
 
 	return mux
 }

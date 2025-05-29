@@ -54,6 +54,7 @@ echo ""
 echo -e "${BLUE}👥 Creating test users...${NC}"
 sqlite3 "$DB_PATH" << EOF
 INSERT OR IGNORE INTO users (email, name, minutes) VALUES 
+    ('test@test.com', 'test', 9999),
     ('alice@example.com', 'Alice Johnson', 0),
     ('bob@example.com', 'Bob Smith', 10),
     ('charlie@example.com', 'Charlie Brown', 1000),

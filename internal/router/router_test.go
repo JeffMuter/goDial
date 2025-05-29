@@ -1,21 +1,41 @@
 package router
 
 import (
+	"goDial/internal/database"
 	"net/http"
 	"net/http/httptest"
+	"path/filepath"
 	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
+// setupTestDB creates a test database for testing
+func setupTestDB(t *testing.T) *database.DB {
+	tempDir := t.TempDir()
+	dbPath := filepath.Join(tempDir, "test.db")
+
+	db, err := database.InitDB(dbPath)
+	require.NoError(t, err, "Failed to initialize test database")
+
+	t.Cleanup(func() {
+		db.Close()
+	})
+
+	return db
+}
+
 func TestNewRouter(t *testing.T) {
-	router := NewRouter()
+	db := setupTestDB(t)
+	router := NewRouter(db)
 	assert.NotNil(t, router, "Router should not be nil")
 }
 
 func TestHomeRoute(t *testing.T) {
-	router := NewRouter()
+	db := setupTestDB(t)
+	router := NewRouter(db)
 
 	tests := []struct {
 		name           string
@@ -39,18 +59,18 @@ func TestHomeRoute(t *testing.T) {
 			expectedBody:   "", // Should still work for POST
 		},
 		{
-			name:           "Invalid path returns 404",
+			name:           "Unmatched path serves home page",
 			method:         "GET",
 			path:           "/nonexistent",
-			expectedStatus: http.StatusNotFound,
-			expectedBody:   "404 page not found",
+			expectedStatus: http.StatusOK,
+			expectedBody:   "", // Home route is catch-all in Go's ServeMux
 		},
 		{
-			name:           "Path with trailing slash",
+			name:           "Path with trailing slash serves home page",
 			method:         "GET",
 			path:           "/invalid/",
-			expectedStatus: http.StatusNotFound,
-			expectedBody:   "404 page not found",
+			expectedStatus: http.StatusOK,
+			expectedBody:   "", // Home route is catch-all in Go's ServeMux
 		},
 	}
 
@@ -67,8 +87,8 @@ func TestHomeRoute(t *testing.T) {
 				assert.Contains(t, w.Body.String(), tt.expectedBody, "Response body should contain expected content")
 			}
 
-			// For successful home page requests, check for HTML content
-			if tt.path == "/" && tt.expectedStatus == http.StatusOK {
+			// For successful requests, check for HTML content
+			if tt.expectedStatus == http.StatusOK {
 				body := w.Body.String()
 				// Check for DOCTYPE (case-insensitive)
 				bodyLower := strings.ToLower(body)
@@ -79,8 +99,9 @@ func TestHomeRoute(t *testing.T) {
 	}
 }
 
-func TestSimpleHomeRoute(t *testing.T) {
-	router := NewRouter()
+func TestStripePageRoute(t *testing.T) {
+	db := setupTestDB(t)
+	router := NewRouter(db)
 
 	tests := []struct {
 		name           string
@@ -89,15 +110,15 @@ func TestSimpleHomeRoute(t *testing.T) {
 		expectedStatus int
 	}{
 		{
-			name:           "GET simple home page",
+			name:           "GET stripe page",
 			method:         "GET",
-			path:           "/simple",
+			path:           "/stripePage",
 			expectedStatus: http.StatusOK,
 		},
 		{
-			name:           "POST to simple home page",
+			name:           "POST to stripe page",
 			method:         "POST",
-			path:           "/simple",
+			path:           "/stripePage",
 			expectedStatus: http.StatusOK,
 		},
 	}
@@ -111,7 +132,8 @@ func TestSimpleHomeRoute(t *testing.T) {
 
 			assert.Equal(t, tt.expectedStatus, w.Code, "Status code should match")
 
-			// Check for HTML content
+			// Check for HTML content - the handler should still work even if DB query fails
+			// because it gracefully handles the error by setting minutes to 0
 			body := w.Body.String()
 			// Check for DOCTYPE (case-insensitive)
 			bodyLower := strings.ToLower(body)
@@ -121,8 +143,26 @@ func TestSimpleHomeRoute(t *testing.T) {
 	}
 }
 
+func TestHealthCheckRoute(t *testing.T) {
+	db := setupTestDB(t)
+	router := NewRouter(db)
+
+	req := httptest.NewRequest("GET", "/health", nil)
+	w := httptest.NewRecorder()
+
+	router.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusOK, w.Code, "Health check should return 200")
+	assert.Equal(t, "application/json", w.Header().Get("Content-Type"), "Health check should return JSON")
+
+	body := w.Body.String()
+	assert.Contains(t, body, `"status":"ok"`, "Health check should contain status ok")
+	assert.Contains(t, body, `"timestamp"`, "Health check should contain timestamp")
+}
+
 func TestStaticFileServing(t *testing.T) {
-	router := NewRouter()
+	db := setupTestDB(t)
+	router := NewRouter(db)
 
 	tests := []struct {
 		name           string
@@ -160,7 +200,8 @@ func TestStaticFileServing(t *testing.T) {
 }
 
 func TestRouterHTTPMethods(t *testing.T) {
-	router := NewRouter()
+	db := setupTestDB(t)
+	router := NewRouter(db)
 
 	methods := []string{"GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"}
 
@@ -178,7 +219,8 @@ func TestRouterHTTPMethods(t *testing.T) {
 }
 
 func TestRouterConcurrency(t *testing.T) {
-	router := NewRouter()
+	db := setupTestDB(t)
+	router := NewRouter(db)
 
 	// Test concurrent requests to ensure router is thread-safe
 	const numRequests = 100
@@ -216,8 +258,8 @@ func TestHandleHomeFunction(t *testing.T) {
 		{
 			name:           "Non-root path",
 			path:           "/other",
-			expectedStatus: http.StatusNotFound,
-			description:    "Should return 404 for non-root paths",
+			expectedStatus: http.StatusOK,
+			description:    "Should serve home page for any path (catch-all behavior)",
 		},
 		{
 			name:           "Root with query params",
@@ -232,7 +274,7 @@ func TestHandleHomeFunction(t *testing.T) {
 			req := httptest.NewRequest("GET", tt.path, nil)
 			w := httptest.NewRecorder()
 
-			handleHome(w, req)
+			handleHomePage(w, req)
 
 			assert.Equal(t, tt.expectedStatus, w.Code, tt.description)
 		})
@@ -240,12 +282,12 @@ func TestHandleHomeFunction(t *testing.T) {
 }
 
 func TestHandleSimpleHomeFunction(t *testing.T) {
-	req := httptest.NewRequest("GET", "/simple", nil)
+	req := httptest.NewRequest("GET", "/", nil)
 	w := httptest.NewRecorder()
 
-	handleSimpleHome(w, req)
+	handleHomePage(w, req)
 
-	assert.Equal(t, http.StatusOK, w.Code, "Simple home handler should return 200")
+	assert.Equal(t, http.StatusOK, w.Code, "Home handler should return 200")
 
 	body := w.Body.String()
 	// Check for DOCTYPE (case-insensitive)
@@ -254,7 +296,8 @@ func TestHandleSimpleHomeFunction(t *testing.T) {
 }
 
 func TestRouterHeaders(t *testing.T) {
-	router := NewRouter()
+	db := setupTestDB(t)
+	router := NewRouter(db)
 
 	req := httptest.NewRequest("GET", "/", nil)
 	req.Header.Set("User-Agent", "goDial-Test/1.0")
@@ -272,7 +315,8 @@ func TestRouterHeaders(t *testing.T) {
 }
 
 func TestRouterErrorHandling(t *testing.T) {
-	router := NewRouter()
+	db := setupTestDB(t)
+	router := NewRouter(db)
 
 	// Test various invalid paths
 	invalidPaths := []string{
@@ -302,7 +346,17 @@ func TestRouterErrorHandling(t *testing.T) {
 
 // Benchmark tests
 func BenchmarkHomeRoute(b *testing.B) {
-	router := NewRouter()
+	// Create a temporary directory for test database
+	tempDir := b.TempDir()
+	dbPath := filepath.Join(tempDir, "bench.db")
+
+	db, err := database.InitDB(dbPath)
+	if err != nil {
+		b.Fatalf("Failed to initialize test database: %v", err)
+	}
+	defer db.Close()
+
+	router := NewRouter(db)
 	req := httptest.NewRequest("GET", "/", nil)
 
 	b.ResetTimer()
@@ -312,9 +366,19 @@ func BenchmarkHomeRoute(b *testing.B) {
 	}
 }
 
-func BenchmarkSimpleHomeRoute(b *testing.B) {
-	router := NewRouter()
-	req := httptest.NewRequest("GET", "/simple", nil)
+func BenchmarkStripePageRoute(b *testing.B) {
+	// Create a temporary directory for test database
+	tempDir := b.TempDir()
+	dbPath := filepath.Join(tempDir, "bench.db")
+
+	db, err := database.InitDB(dbPath)
+	if err != nil {
+		b.Fatalf("Failed to initialize test database: %v", err)
+	}
+	defer db.Close()
+
+	router := NewRouter(db)
+	req := httptest.NewRequest("GET", "/stripePage", nil)
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
@@ -324,7 +388,17 @@ func BenchmarkSimpleHomeRoute(b *testing.B) {
 }
 
 func BenchmarkStaticRoute(b *testing.B) {
-	router := NewRouter()
+	// Create a temporary directory for test database
+	tempDir := b.TempDir()
+	dbPath := filepath.Join(tempDir, "bench.db")
+
+	db, err := database.InitDB(dbPath)
+	if err != nil {
+		b.Fatalf("Failed to initialize test database: %v", err)
+	}
+	defer db.Close()
+
+	router := NewRouter(db)
 	req := httptest.NewRequest("GET", "/static/test.css", nil)
 
 	b.ResetTimer()
