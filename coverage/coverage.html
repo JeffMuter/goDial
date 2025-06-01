@@ -1,1590 +1,1950 @@
-
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>cmd: Go Coverage Report</title>
-		<style>
-			body {
-				background: black;
-				color: rgb(80, 80, 80);
-			}
-			body, pre, #legend span {
-				font-family: Menlo, monospace;
-				font-weight: bold;
-			}
-			#topbar {
-				background: black;
-				position: fixed;
-				top: 0; left: 0; right: 0;
-				height: 42px;
-				border-bottom: 1px solid rgb(80, 80, 80);
-			}
-			#content {
-				margin-top: 50px;
-			}
-			#nav, #legend {
-				float: left;
-				margin-left: 10px;
-			}
-			#legend {
-				margin-top: 12px;
-			}
-			#nav {
-				margin-top: 10px;
-			}
-			#legend span {
-				margin: 0 5px;
-			}
-			.cov0 { color: rgb(192, 0, 0) }
-.cov1 { color: rgb(128, 128, 128) }
-.cov2 { color: rgb(116, 140, 131) }
-.cov3 { color: rgb(104, 152, 134) }
-.cov4 { color: rgb(92, 164, 137) }
-.cov5 { color: rgb(80, 176, 140) }
-.cov6 { color: rgb(68, 188, 143) }
-.cov7 { color: rgb(56, 200, 146) }
-.cov8 { color: rgb(44, 212, 149) }
-.cov9 { color: rgb(32, 224, 152) }
-.cov10 { color: rgb(20, 236, 155) }
 
-		</style>
-	</head>
-	<body>
-		<div id="topbar">
-			<div id="nav">
-				<select id="files">
-				
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>cmd: Go Coverage Report</title>
+	<style>
+		body {
+			background: black;
+			color: rgb(80, 80, 80);
+		}
+
+		body,
+		pre,
+		#legend span {
+			font-family: Menlo, monospace;
+			font-weight: bold;
+		}
+
+		#topbar {
+			background: black;
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 42px;
+			border-bottom: 1px solid rgb(80, 80, 80);
+		}
+
+		#content {
+			margin-top: 50px;
+		}
+
+		#nav,
+		#legend {
+			float: left;
+			margin-left: 10px;
+		}
+
+		#legend {
+			margin-top: 12px;
+		}
+
+		#nav {
+			margin-top: 10px;
+		}
+
+		#legend span {
+			margin: 0 5px;
+		}
+
+		.cov0 {
+			color: rgb(192, 0, 0)
+		}
+
+		.cov1 {
+			color: rgb(128, 128, 128)
+		}
+
+		.cov2 {
+			color: rgb(116, 140, 131)
+		}
+
+		.cov3 {
+			color: rgb(104, 152, 134)
+		}
+
+		.cov4 {
+			color: rgb(92, 164, 137)
+		}
+
+		.cov5 {
+			color: rgb(80, 176, 140)
+		}
+
+		.cov6 {
+			color: rgb(68, 188, 143)
+		}
+
+		.cov7 {
+			color: rgb(56, 200, 146)
+		}
+
+		.cov8 {
+			color: rgb(44, 212, 149)
+		}
+
+		.cov9 {
+			color: rgb(32, 224, 152)
+		}
+
+		.cov10 {
+			color: rgb(20, 236, 155)
+		}
+	</style>
+</head>
+
+<body>
+	<div id="topbar">
+		<div id="nav">
+			<select id="files">
+
 				<option value="file0">goDial/cmd/main.go (0.0%)</option>
-				
+
 				<option value="file1">goDial/internal/ai/generation.go (50.0%)</option>
-				
+
 				<option value="file2">goDial/internal/database/calls.sql.go (16.7%)</option>
-				
+
 				<option value="file3">goDial/internal/database/db.go (50.0%)</option>
-				
+
 				<option value="file4">goDial/internal/database/init.go (66.7%)</option>
-				
-				<option value="file5">goDial/internal/database/users.sql.go (21.6%)</option>
-				
-				<option value="file6">goDial/internal/router/handlers.go (90.0%)</option>
-				
+
+				<option value="file5">goDial/internal/database/users.sql.go (32.4%)</option>
+
+				<option value="file6">goDial/internal/router/handlers.go (100.0%)</option>
+
 				<option value="file7">goDial/internal/router/router.go (36.7%)</option>
-				
+
 				<option value="file8">goDial/internal/stripe/stripe.go (0.0%)</option>
-				
-				<option value="file9">goDial/internal/templates/components/button_templ.go (53.1%)</option>
-				
-				<option value="file10">goDial/internal/templates/components/cards_templ.go (66.2%)</option>
-				
-				<option value="file11">goDial/internal/templates/components/forms_templ.go (67.8%)</option>
-				
-				<option value="file12">goDial/internal/templates/components/navigation_templ.go (63.2%)</option>
-				
+
+				<option value="file9">goDial/internal/templates/components/button_templ.go (53.1%)
+				</option>
+
+				<option value="file10">goDial/internal/templates/components/cards_templ.go (66.2%)
+				</option>
+
+				<option value="file11">goDial/internal/templates/components/forms_templ.go (67.8%)
+				</option>
+
+				<option value="file12">goDial/internal/templates/components/navigation_templ.go (63.2%)
+				</option>
+
 				<option value="file13">goDial/internal/templates/layouts/app_templ.go (66.0%)</option>
-				
+
 				<option value="file14">goDial/internal/templates/pages/home_templ.go (71.0%)</option>
-				
+
 				<option value="file15">goDial/internal/templates/pages/stripe_templ.go (72.2%)</option>
-				
-				</select>
-			</div>
-			<div id="legend">
-				<span>not tracked</span>
-			
-				<span class="cov0">no coverage</span>
-				<span class="cov1">low coverage</span>
-				<span class="cov2">*</span>
-				<span class="cov3">*</span>
-				<span class="cov4">*</span>
-				<span class="cov5">*</span>
-				<span class="cov6">*</span>
-				<span class="cov7">*</span>
-				<span class="cov8">*</span>
-				<span class="cov9">*</span>
-				<span class="cov10">high coverage</span>
-			
-			</div>
+
+			</select>
 		</div>
-		<div id="content">
-		
+		<div id="legend">
+			<span>not tracked</span>
+
+			<span class="cov0">no coverage</span>
+			<span class="cov1">low coverage</span>
+			<span class="cov2">*</span>
+			<span class="cov3">*</span>
+			<span class="cov4">*</span>
+			<span class="cov5">*</span>
+			<span class="cov6">*</span>
+			<span class="cov7">*</span>
+			<span class="cov8">*</span>
+			<span class="cov9">*</span>
+			<span class="cov10">high coverage</span>
+
+		</div>
+	</div>
+	<div id="content">
+
 		<pre class="file" id="file0" style="display: none">package main
 
-import (
-        "log"
-        "net/http"
-        "os"
+			import (
+			"log"
+			"net/http"
+			"os"
 
-        "goDial/internal/database"
-        "goDial/internal/router"
-)
+			"goDial/internal/database"
+			"goDial/internal/router"
+			)
 
-func main() <span class="cov0" title="0">{
-        db, err := database.InitDB("goDial.db")
-        if err != nil </span><span class="cov0" title="0">{
-                db, err := database.InitDB("goDial.db")
-                if err != nil </span><span class="cov0" title="0">{
-                        log.Fatal(err)
-                }</span>
-                <span class="cov0" title="0">defer db.Close()
-                log.Fatal(err)</span>
-        }
-        <span class="cov0" title="0">defer db.Close()
+			func main() <span class="cov0" title="0">{
+				db, err := database.InitDB("goDial.db")
+				if err != nil </span><span class="cov0" title="0">{
+				db, err := database.InitDB("goDial.db")
+				if err != nil </span><span class="cov0" title="0">{
+				log.Fatal(err)
+				}</span>
+			<span class="cov0" title="0">defer db.Close()
+				log.Fatal(err)</span>
+			}
+			<span class="cov0" title="0">defer db.Close()
 
-        r := router.NewRouter(db)
+				r := router.NewRouter(db)
 
-        // Show startup message in development mode but make it more informative
-        if os.Getenv("GO_ENV") == "development" &amp;&amp; os.Getenv("AIR_ENABLED") == "1" </span><span class="cov0" title="0">{
-                log.Println("Server restarting on :8081")
-        }</span> else<span class="cov0" title="0"> {
-                log.Println("Starting server on :8081")
-        }</span>
+				// Show startup message in development mode but make it more informative
+				if os.Getenv("GO_ENV") == "development" &amp;&amp; os.Getenv("AIR_ENABLED") == "1"
+			</span><span class="cov0" title="0">{
+				log.Println("Server restarting on :8081")
+				}</span> else<span class="cov0" title="0"> {
+				log.Println("Starting server on :8081")
+				}</span>
 
-        <span class="cov0" title="0">if err := http.ListenAndServe(":8081", r); err != nil </span><span class="cov0" title="0">{
-                log.Fatal(err)
-        }</span>
-}
-</pre>
-		
+			<span class="cov0" title="0">if err := http.ListenAndServe(":8081", r); err != nil </span><span
+				class="cov0" title="0">{
+				log.Fatal(err)
+				}</span>
+			}
+		</pre>
+
 		<pre class="file" id="file1" style="display: none">package ai
 
-import (
-        "context"
-        "fmt"
-        "os"
-        "strings"
+			import (
+			"context"
+			"fmt"
+			"os"
+			"strings"
 
-        "github.com/anthropics/anthropic-sdk-go"
-        "github.com/anthropics/anthropic-sdk-go/option"
-)
+			"github.com/anthropics/anthropic-sdk-go"
+			"github.com/anthropics/anthropic-sdk-go/option"
+			)
 
-// CallAnthropic function takes in any string, and responds with a generated Anthropic response in a string.
-func CallAnthropic(prompt string) (string, error) <span class="cov10" title="4">{
-        // Get API key from environment variable
-        apiKey := os.Getenv("ANTHROPIC_API_KEY")
-        if apiKey == "" </span><span class="cov8" title="3">{
-                return "", fmt.Errorf("ANTHROPIC_API_KEY environment variable not set")
-        }</span>
+			// CallAnthropic function takes in any string, and responds with a generated Anthropic response
+			in a string.
+			func CallAnthropic(prompt string) (string, error) <span class="cov10" title="4">{
+				// Get API key from environment variable
+				apiKey := os.Getenv("ANTHROPIC_API_KEY")
+				if apiKey == "" </span><span class="cov8" title="3">{
+				return "", fmt.Errorf("ANTHROPIC_API_KEY environment variable not set")
+				}</span>
 
-        // Create client with the api key we have
-        <span class="cov1" title="1">client := anthropic.NewClient(
-                option.WithAPIKey(apiKey),
-        )
+			// Create client with the api key we have
+			<span class="cov1" title="1">client := anthropic.NewClient(
+				option.WithAPIKey(apiKey),
+				)
 
-        // creates a new user message in the message json struct anthropic uses
-        messages := []anthropic.MessageParam{
-                anthropic.NewUserMessage(anthropic.NewTextBlock(prompt)),
-        }
+				// creates a new user message in the message json struct anthropic uses
+				messages := []anthropic.MessageParam{
+				anthropic.NewUserMessage(anthropic.NewTextBlock(prompt)),
+				}
 
-        // get response from anthropic, adding it to messages struct
-        message, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
-                Model:     anthropic.ModelClaude3_7SonnetLatest,
-                Messages:  messages,
-                MaxTokens: 1024,
-        })
-        if err != nil </span><span class="cov1" title="1">{
-                return "", fmt.Errorf("error creating new anthropic client messages: %w\n", err)
-        }</span>
+				// get response from anthropic, adding it to messages struct
+				message, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
+				Model: anthropic.ModelClaude3_7SonnetLatest,
+				Messages: messages,
+				MaxTokens: 1024,
+				})
+				if err != nil </span><span class="cov1" title="1">{
+				return "", fmt.Errorf("error creating new anthropic client messages: %w\n", err)
+				}</span>
 
-        <span class="cov0" title="0">messages = append(messages, message.ToParam())
-        messages = append(messages, anthropic.NewUserMessage(
-                anthropic.NewTextBlock(prompt),
-        ))
+			<span class="cov0" title="0">messages = append(messages, message.ToParam())
+				messages = append(messages, anthropic.NewUserMessage(
+				anthropic.NewTextBlock(prompt),
+				))
 
-        // from the json that Antropic returns, build the response
-        var generatedResponse strings.Builder
-        for _, jsonBlock := range message.Content </span><span class="cov0" title="0">{
-                if jsonBlock.Type != "text" </span><span class="cov0" title="0">{
-                        fmt.Printf("error, response from anthropic was not of type \"type\" test. Type: %s\n", message.Content[0].Type)
-                }</span>
-                <span class="cov0" title="0">generatedResponse.WriteString(jsonBlock.Text)</span>
-        }
-        <span class="cov0" title="0">return generatedResponse.String(), nil</span>
-}
+				// from the json that Antropic returns, build the response
+				var generatedResponse strings.Builder
+				for _, jsonBlock := range message.Content </span><span class="cov0" title="0">{
+				if jsonBlock.Type != "text" </span><span class="cov0" title="0">{
+				fmt.Printf("error, response from anthropic was not of type \"type\" test. Type: %s\n",
+				message.Content[0].Type)
+				}</span>
+			<span class="cov0" title="0">generatedResponse.WriteString(jsonBlock.Text)</span>
+			}
+			<span class="cov0" title="0">return generatedResponse.String(), nil</span>
+			}
 
-// checking if user input is an input we're comfortable excecuting based on the prompt.
-// returns an empty string if the request was good, else, has the reason the request was bad.
-func CheckPromptValidity(userPrompt string) (string, error) <span class="cov1" title="1">{
-        resp, err := CallAnthropic("below is a request the user has asked an employee to complete. we have a phone number, and then this set of instructions. Your job is to *only* respond with either, 'true', or explain why you dont think the request is valid. You will respond with true if you feel that the request is in no way harmful to complete, does not contain legal implications in any US state. If you feel we may have any ethical concerns, please respond with nothing more than you reason for thinking the request may not be valid..." + userPrompt)
-        if err != nil </span><span class="cov1" title="1">{
-                return "error in call anthropic...", fmt.Errorf("error calling anthropic: %v\n", err)
-        }</span>
-        <span class="cov0" title="0">if resp != "true" </span><span class="cov0" title="0">{
-                return fmt.Sprintf(
-                                "anthropic has detected that for some reason, the request was invalid... see here: %s\n", resp,
-                        ),
-                        fmt.Errorf(
-                                "anthropic has detected that for some reason, the request was invalid... see here: %s\n", resp,
-                        )
-        }</span>
-        <span class="cov0" title="0">return "", nil</span>
-}
-</pre>
-		
+			// checking if user input is an input we're comfortable excecuting based on the prompt.
+			// returns an empty string if the request was good, else, has the reason the request was bad.
+			func CheckPromptValidity(userPrompt string) (string, error) <span class="cov1" title="1">{
+				resp, err := CallAnthropic("below is a request the user has asked an employee to
+				complete. we have a phone number, and then this set of instructions. Your job is to
+				*only* respond with either, 'true', or explain why you dont think the request is valid.
+				You will respond with true if you feel that the request is in no way harmful to
+				complete, does not contain legal implications in any US state. If you feel we may have
+				any ethical concerns, please respond with nothing more than you reason for thinking the
+				request may not be valid..." + userPrompt)
+				if err != nil </span><span class="cov1" title="1">{
+				return "error in call anthropic...", fmt.Errorf("error calling anthropic: %v\n", err)
+				}</span>
+			<span class="cov0" title="0">if resp != "true" </span><span class="cov0" title="0">{
+				return fmt.Sprintf(
+				"anthropic has detected that for some reason, the request was invalid... see here:
+				%s\n", resp,
+				),
+				fmt.Errorf(
+				"anthropic has detected that for some reason, the request was invalid... see here:
+				%s\n", resp,
+				)
+				}</span>
+			<span class="cov0" title="0">return "", nil</span>
+			}
+		</pre>
+
 		<pre class="file" id="file2" style="display: none">// Code generated by sqlc. DO NOT EDIT.
-// versions:
-//   sqlc v1.27.0
-// source: calls.sql
+			// versions:
+			// sqlc v1.27.0
+			// source: calls.sql
 
-package database
+			package database
 
-import (
-        "context"
-        "database/sql"
-)
+			import (
+			"context"
+			"database/sql"
+			)
 
-const completeCall = `-- name: CompleteCall :one
-UPDATE calls
-SET status = 'completed', completed_at = CURRENT_TIMESTAMP, updated_at = CURRENT_TIMESTAMP
-WHERE id = ?
-RETURNING id, user_id, phone_number, recipient_context, objective, background_context, status, created_at, updated_at, completed_at
-`
+			const completeCall = `-- name: CompleteCall :one
+			UPDATE calls
+			SET status = 'completed', completed_at = CURRENT_TIMESTAMP, updated_at = CURRENT_TIMESTAMP
+			WHERE id = ?
+			RETURNING id, user_id, phone_number, recipient_context, objective, background_context, status,
+			created_at, updated_at, completed_at
+			`
 
-func (q *Queries) CompleteCall(ctx context.Context, id int64) (Call, error) <span class="cov0" title="0">{
-        row := q.db.QueryRowContext(ctx, completeCall, id)
-        var i Call
-        err := row.Scan(
-                &amp;i.ID,
-                &amp;i.UserID,
-                &amp;i.PhoneNumber,
-                &amp;i.RecipientContext,
-                &amp;i.Objective,
-                &amp;i.BackgroundContext,
-                &amp;i.Status,
-                &amp;i.CreatedAt,
-                &amp;i.UpdatedAt,
-                &amp;i.CompletedAt,
-        )
-        return i, err
-}</span>
+			func (q *Queries) CompleteCall(ctx context.Context, id int64) (Call, error) <span class="cov0"
+				title="0">{
+				row := q.db.QueryRowContext(ctx, completeCall, id)
+				var i Call
+				err := row.Scan(
+				&amp;i.ID,
+				&amp;i.UserID,
+				&amp;i.PhoneNumber,
+				&amp;i.RecipientContext,
+				&amp;i.Objective,
+				&amp;i.BackgroundContext,
+				&amp;i.Status,
+				&amp;i.CreatedAt,
+				&amp;i.UpdatedAt,
+				&amp;i.CompletedAt,
+				)
+				return i, err
+				}</span>
 
-const createCall = `-- name: CreateCall :one
-INSERT INTO calls (user_id, phone_number, recipient_context, objective, background_context)
-VALUES (?, ?, ?, ?, ?)
-RETURNING id, user_id, phone_number, recipient_context, objective, background_context, status, created_at, updated_at, completed_at
-`
+			const createCall = `-- name: CreateCall :one
+			INSERT INTO calls (user_id, phone_number, recipient_context, objective, background_context)
+			VALUES (?, ?, ?, ?, ?)
+			RETURNING id, user_id, phone_number, recipient_context, objective, background_context, status,
+			created_at, updated_at, completed_at
+			`
 
-type CreateCallParams struct {
-        UserID            int64          `json:"user_id"`
-        PhoneNumber       string         `json:"phone_number"`
-        RecipientContext  sql.NullString `json:"recipient_context"`
-        Objective         string         `json:"objective"`
-        BackgroundContext sql.NullString `json:"background_context"`
-}
+			type CreateCallParams struct {
+			UserID int64 `json:"user_id"`
+			PhoneNumber string `json:"phone_number"`
+			RecipientContext sql.NullString `json:"recipient_context"`
+			Objective string `json:"objective"`
+			BackgroundContext sql.NullString `json:"background_context"`
+			}
 
-func (q *Queries) CreateCall(ctx context.Context, arg CreateCallParams) (Call, error) <span class="cov8" title="1">{
-        row := q.db.QueryRowContext(ctx, createCall,
-                arg.UserID,
-                arg.PhoneNumber,
-                arg.RecipientContext,
-                arg.Objective,
-                arg.BackgroundContext,
-        )
-        var i Call
-        err := row.Scan(
-                &amp;i.ID,
-                &amp;i.UserID,
-                &amp;i.PhoneNumber,
-                &amp;i.RecipientContext,
-                &amp;i.Objective,
-                &amp;i.BackgroundContext,
-                &amp;i.Status,
-                &amp;i.CreatedAt,
-                &amp;i.UpdatedAt,
-                &amp;i.CompletedAt,
-        )
-        return i, err
-}</span>
+			func (q *Queries) CreateCall(ctx context.Context, arg CreateCallParams) (Call, error) <span
+				class="cov8" title="1">{
+				row := q.db.QueryRowContext(ctx, createCall,
+				arg.UserID,
+				arg.PhoneNumber,
+				arg.RecipientContext,
+				arg.Objective,
+				arg.BackgroundContext,
+				)
+				var i Call
+				err := row.Scan(
+				&amp;i.ID,
+				&amp;i.UserID,
+				&amp;i.PhoneNumber,
+				&amp;i.RecipientContext,
+				&amp;i.Objective,
+				&amp;i.BackgroundContext,
+				&amp;i.Status,
+				&amp;i.CreatedAt,
+				&amp;i.UpdatedAt,
+				&amp;i.CompletedAt,
+				)
+				return i, err
+				}</span>
 
-const deleteCall = `-- name: DeleteCall :exec
-DELETE FROM calls
-WHERE id = ?
-`
+			const deleteCall = `-- name: DeleteCall :exec
+			DELETE FROM calls
+			WHERE id = ?
+			`
 
-func (q *Queries) DeleteCall(ctx context.Context, id int64) error <span class="cov0" title="0">{
-        _, err := q.db.ExecContext(ctx, deleteCall, id)
-        return err
-}</span>
+			func (q *Queries) DeleteCall(ctx context.Context, id int64) error <span class="cov0" title="0">{
+				_, err := q.db.ExecContext(ctx, deleteCall, id)
+				return err
+				}</span>
 
-const getCall = `-- name: GetCall :one
-SELECT id, user_id, phone_number, recipient_context, objective, background_context, status, created_at, updated_at, completed_at FROM calls
-WHERE id = ?
-`
+			const getCall = `-- name: GetCall :one
+			SELECT id, user_id, phone_number, recipient_context, objective, background_context, status,
+			created_at, updated_at, completed_at FROM calls
+			WHERE id = ?
+			`
 
-func (q *Queries) GetCall(ctx context.Context, id int64) (Call, error) <span class="cov8" title="1">{
-        row := q.db.QueryRowContext(ctx, getCall, id)
-        var i Call
-        err := row.Scan(
-                &amp;i.ID,
-                &amp;i.UserID,
-                &amp;i.PhoneNumber,
-                &amp;i.RecipientContext,
-                &amp;i.Objective,
-                &amp;i.BackgroundContext,
-                &amp;i.Status,
-                &amp;i.CreatedAt,
-                &amp;i.UpdatedAt,
-                &amp;i.CompletedAt,
-        )
-        return i, err
-}</span>
+			func (q *Queries) GetCall(ctx context.Context, id int64) (Call, error) <span class="cov8"
+				title="1">{
+				row := q.db.QueryRowContext(ctx, getCall, id)
+				var i Call
+				err := row.Scan(
+				&amp;i.ID,
+				&amp;i.UserID,
+				&amp;i.PhoneNumber,
+				&amp;i.RecipientContext,
+				&amp;i.Objective,
+				&amp;i.BackgroundContext,
+				&amp;i.Status,
+				&amp;i.CreatedAt,
+				&amp;i.UpdatedAt,
+				&amp;i.CompletedAt,
+				)
+				return i, err
+				}</span>
 
-const listCallsByStatus = `-- name: ListCallsByStatus :many
-SELECT id, user_id, phone_number, recipient_context, objective, background_context, status, created_at, updated_at, completed_at FROM calls
-WHERE status = ?
-ORDER BY created_at DESC
-`
+			const listCallsByStatus = `-- name: ListCallsByStatus :many
+			SELECT id, user_id, phone_number, recipient_context, objective, background_context, status,
+			created_at, updated_at, completed_at FROM calls
+			WHERE status = ?
+			ORDER BY created_at DESC
+			`
 
-func (q *Queries) ListCallsByStatus(ctx context.Context, status sql.NullString) ([]Call, error) <span class="cov0" title="0">{
-        rows, err := q.db.QueryContext(ctx, listCallsByStatus, status)
-        if err != nil </span><span class="cov0" title="0">{
-                return nil, err
-        }</span>
-        <span class="cov0" title="0">defer rows.Close()
-        items := []Call{}
-        for rows.Next() </span><span class="cov0" title="0">{
-                var i Call
-                if err := rows.Scan(
-                        &amp;i.ID,
-                        &amp;i.UserID,
-                        &amp;i.PhoneNumber,
-                        &amp;i.RecipientContext,
-                        &amp;i.Objective,
-                        &amp;i.BackgroundContext,
-                        &amp;i.Status,
-                        &amp;i.CreatedAt,
-                        &amp;i.UpdatedAt,
-                        &amp;i.CompletedAt,
-                ); err != nil </span><span class="cov0" title="0">{
-                        return nil, err
-                }</span>
-                <span class="cov0" title="0">items = append(items, i)</span>
-        }
-        <span class="cov0" title="0">if err := rows.Close(); err != nil </span><span class="cov0" title="0">{
-                return nil, err
-        }</span>
-        <span class="cov0" title="0">if err := rows.Err(); err != nil </span><span class="cov0" title="0">{
-                return nil, err
-        }</span>
-        <span class="cov0" title="0">return items, nil</span>
-}
+			func (q *Queries) ListCallsByStatus(ctx context.Context, status sql.NullString) ([]Call, error)
+			<span class="cov0" title="0">{
+				rows, err := q.db.QueryContext(ctx, listCallsByStatus, status)
+				if err != nil </span><span class="cov0" title="0">{
+				return nil, err
+				}</span>
+			<span class="cov0" title="0">defer rows.Close()
+				items := []Call{}
+				for rows.Next() </span><span class="cov0" title="0">{
+				var i Call
+				if err := rows.Scan(
+				&amp;i.ID,
+				&amp;i.UserID,
+				&amp;i.PhoneNumber,
+				&amp;i.RecipientContext,
+				&amp;i.Objective,
+				&amp;i.BackgroundContext,
+				&amp;i.Status,
+				&amp;i.CreatedAt,
+				&amp;i.UpdatedAt,
+				&amp;i.CompletedAt,
+				); err != nil </span><span class="cov0" title="0">{
+				return nil, err
+				}</span>
+			<span class="cov0" title="0">items = append(items, i)</span>
+			}
+			<span class="cov0" title="0">if err := rows.Close(); err != nil </span><span class="cov0"
+				title="0">{
+				return nil, err
+				}</span>
+			<span class="cov0" title="0">if err := rows.Err(); err != nil </span><span class="cov0"
+				title="0">{
+				return nil, err
+				}</span>
+			<span class="cov0" title="0">return items, nil</span>
+			}
 
-const listCallsByUser = `-- name: ListCallsByUser :many
-SELECT id, user_id, phone_number, recipient_context, objective, background_context, status, created_at, updated_at, completed_at FROM calls
-WHERE user_id = ?
-ORDER BY created_at DESC
-`
+			const listCallsByUser = `-- name: ListCallsByUser :many
+			SELECT id, user_id, phone_number, recipient_context, objective, background_context, status,
+			created_at, updated_at, completed_at FROM calls
+			WHERE user_id = ?
+			ORDER BY created_at DESC
+			`
 
-func (q *Queries) ListCallsByUser(ctx context.Context, userID int64) ([]Call, error) <span class="cov0" title="0">{
-        rows, err := q.db.QueryContext(ctx, listCallsByUser, userID)
-        if err != nil </span><span class="cov0" title="0">{
-                return nil, err
-        }</span>
-        <span class="cov0" title="0">defer rows.Close()
-        items := []Call{}
-        for rows.Next() </span><span class="cov0" title="0">{
-                var i Call
-                if err := rows.Scan(
-                        &amp;i.ID,
-                        &amp;i.UserID,
-                        &amp;i.PhoneNumber,
-                        &amp;i.RecipientContext,
-                        &amp;i.Objective,
-                        &amp;i.BackgroundContext,
-                        &amp;i.Status,
-                        &amp;i.CreatedAt,
-                        &amp;i.UpdatedAt,
-                        &amp;i.CompletedAt,
-                ); err != nil </span><span class="cov0" title="0">{
-                        return nil, err
-                }</span>
-                <span class="cov0" title="0">items = append(items, i)</span>
-        }
-        <span class="cov0" title="0">if err := rows.Close(); err != nil </span><span class="cov0" title="0">{
-                return nil, err
-        }</span>
-        <span class="cov0" title="0">if err := rows.Err(); err != nil </span><span class="cov0" title="0">{
-                return nil, err
-        }</span>
-        <span class="cov0" title="0">return items, nil</span>
-}
+			func (q *Queries) ListCallsByUser(ctx context.Context, userID int64) ([]Call, error) <span
+				class="cov0" title="0">{
+				rows, err := q.db.QueryContext(ctx, listCallsByUser, userID)
+				if err != nil </span><span class="cov0" title="0">{
+				return nil, err
+				}</span>
+			<span class="cov0" title="0">defer rows.Close()
+				items := []Call{}
+				for rows.Next() </span><span class="cov0" title="0">{
+				var i Call
+				if err := rows.Scan(
+				&amp;i.ID,
+				&amp;i.UserID,
+				&amp;i.PhoneNumber,
+				&amp;i.RecipientContext,
+				&amp;i.Objective,
+				&amp;i.BackgroundContext,
+				&amp;i.Status,
+				&amp;i.CreatedAt,
+				&amp;i.UpdatedAt,
+				&amp;i.CompletedAt,
+				); err != nil </span><span class="cov0" title="0">{
+				return nil, err
+				}</span>
+			<span class="cov0" title="0">items = append(items, i)</span>
+			}
+			<span class="cov0" title="0">if err := rows.Close(); err != nil </span><span class="cov0"
+				title="0">{
+				return nil, err
+				}</span>
+			<span class="cov0" title="0">if err := rows.Err(); err != nil </span><span class="cov0"
+				title="0">{
+				return nil, err
+				}</span>
+			<span class="cov0" title="0">return items, nil</span>
+			}
 
-const updateCallStatus = `-- name: UpdateCallStatus :one
-UPDATE calls
-SET status = ?, updated_at = CURRENT_TIMESTAMP
-WHERE id = ?
-RETURNING id, user_id, phone_number, recipient_context, objective, background_context, status, created_at, updated_at, completed_at
-`
+			const updateCallStatus = `-- name: UpdateCallStatus :one
+			UPDATE calls
+			SET status = ?, updated_at = CURRENT_TIMESTAMP
+			WHERE id = ?
+			RETURNING id, user_id, phone_number, recipient_context, objective, background_context, status,
+			created_at, updated_at, completed_at
+			`
 
-type UpdateCallStatusParams struct {
-        Status sql.NullString `json:"status"`
-        ID     int64          `json:"id"`
-}
+			type UpdateCallStatusParams struct {
+			Status sql.NullString `json:"status"`
+			ID int64 `json:"id"`
+			}
 
-func (q *Queries) UpdateCallStatus(ctx context.Context, arg UpdateCallStatusParams) (Call, error) <span class="cov0" title="0">{
-        row := q.db.QueryRowContext(ctx, updateCallStatus, arg.Status, arg.ID)
-        var i Call
-        err := row.Scan(
-                &amp;i.ID,
-                &amp;i.UserID,
-                &amp;i.PhoneNumber,
-                &amp;i.RecipientContext,
-                &amp;i.Objective,
-                &amp;i.BackgroundContext,
-                &amp;i.Status,
-                &amp;i.CreatedAt,
-                &amp;i.UpdatedAt,
-                &amp;i.CompletedAt,
-        )
-        return i, err
-}</span>
-</pre>
-		
+			func (q *Queries) UpdateCallStatus(ctx context.Context, arg UpdateCallStatusParams) (Call,
+			error) <span class="cov0" title="0">{
+				row := q.db.QueryRowContext(ctx, updateCallStatus, arg.Status, arg.ID)
+				var i Call
+				err := row.Scan(
+				&amp;i.ID,
+				&amp;i.UserID,
+				&amp;i.PhoneNumber,
+				&amp;i.RecipientContext,
+				&amp;i.Objective,
+				&amp;i.BackgroundContext,
+				&amp;i.Status,
+				&amp;i.CreatedAt,
+				&amp;i.UpdatedAt,
+				&amp;i.CompletedAt,
+				)
+				return i, err
+				}</span>
+		</pre>
+
 		<pre class="file" id="file3" style="display: none">// Code generated by sqlc. DO NOT EDIT.
-// versions:
-//   sqlc v1.27.0
+			// versions:
+			// sqlc v1.27.0
 
-package database
+			package database
 
-import (
-        "context"
-        "database/sql"
-)
+			import (
+			"context"
+			"database/sql"
+			)
 
-type DBTX interface {
-        ExecContext(context.Context, string, ...interface{}) (sql.Result, error)
-        PrepareContext(context.Context, string) (*sql.Stmt, error)
-        QueryContext(context.Context, string, ...interface{}) (*sql.Rows, error)
-        QueryRowContext(context.Context, string, ...interface{}) *sql.Row
-}
+			type DBTX interface {
+			ExecContext(context.Context, string, ...interface{}) (sql.Result, error)
+			PrepareContext(context.Context, string) (*sql.Stmt, error)
+			QueryContext(context.Context, string, ...interface{}) (*sql.Rows, error)
+			QueryRowContext(context.Context, string, ...interface{}) *sql.Row
+			}
 
-func New(db DBTX) *Queries <span class="cov10" title="4">{
-        return &amp;Queries{db: db}
-}</span>
+			func New(db DBTX) *Queries <span class="cov10" title="7">{
+				return &amp;Queries{db: db}
+				}</span>
 
-type Queries struct {
-        db DBTX
-}
+			type Queries struct {
+			db DBTX
+			}
 
-func (q *Queries) WithTx(tx *sql.Tx) *Queries <span class="cov0" title="0">{
-        return &amp;Queries{
-                db: tx,
-        }
-}</span>
-</pre>
-		
+			func (q *Queries) WithTx(tx *sql.Tx) *Queries <span class="cov0" title="0">{
+				return &amp;Queries{
+				db: tx,
+				}
+				}</span>
+		</pre>
+
 		<pre class="file" id="file4" style="display: none">package database
 
-import (
-        "database/sql"
-        "embed"
-        "fmt"
-        "log"
-        "os"
-        "path/filepath"
+			import (
+			"database/sql"
+			"embed"
+			"fmt"
+			"log"
+			"os"
+			"path/filepath"
 
-        _ "github.com/mattn/go-sqlite3"
-        "github.com/pressly/goose/v3"
-)
+			_ "github.com/mattn/go-sqlite3"
+			"github.com/pressly/goose/v3"
+			)
 
-//go:embed migrations/*.sql
-var embedMigrations embed.FS
+			//go:embed migrations/*.sql
+			var embedMigrations embed.FS
 
-type DB struct {
-        *sql.DB
-        *Queries
-}
+			type DB struct {
+			*sql.DB
+			*Queries
+			}
 
-// InitDB initializes the database connection and runs migrations
-func InitDB(dbPath string) (*DB, error) <span class="cov10" title="4">{
-        // Ensure the directory exists
-        dir := filepath.Dir(dbPath)
-        if err := os.MkdirAll(dir, 0755); err != nil </span><span class="cov0" title="0">{
-                return nil, fmt.Errorf("failed to create database directory: %w", err)
-        }</span>
+			// InitDB initializes the database connection and runs migrations
+			func InitDB(dbPath string) (*DB, error) <span class="cov10" title="7">{
+				// Ensure the directory exists
+				dir := filepath.Dir(dbPath)
+				if err := os.MkdirAll(dir, 0755); err != nil </span><span class="cov0" title="0">{
+				return nil, fmt.Errorf("failed to create database directory: %w", err)
+				}</span>
 
-        // Open database connection
-        <span class="cov10" title="4">sqlDB, err := sql.Open("sqlite3", dbPath+"?_foreign_keys=on")
-        if err != nil </span><span class="cov0" title="0">{
-                return nil, fmt.Errorf("failed to open database: %w", err)
-        }</span>
+			// Open database connection
+			<span class="cov10" title="7">sqlDB, err := sql.Open("sqlite3", dbPath+"?_foreign_keys=on")
+				if err != nil </span><span class="cov0" title="0">{
+				return nil, fmt.Errorf("failed to open database: %w", err)
+				}</span>
 
-        // Test the connection
-        <span class="cov10" title="4">if err := sqlDB.Ping(); err != nil </span><span class="cov0" title="0">{
-                return nil, fmt.Errorf("failed to ping database: %w", err)
-        }</span>
+			// Test the connection
+			<span class="cov10" title="7">if err := sqlDB.Ping(); err != nil </span><span class="cov0"
+				title="0">{
+				return nil, fmt.Errorf("failed to ping database: %w", err)
+				}</span>
 
-        // Run migrations
-        <span class="cov10" title="4">if err := runMigrations(sqlDB); err != nil </span><span class="cov0" title="0">{
-                return nil, fmt.Errorf("failed to run migrations: %w", err)
-        }</span>
+			// Run migrations
+			<span class="cov10" title="7">if err := runMigrations(sqlDB); err != nil </span><span
+				class="cov0" title="0">{
+				return nil, fmt.Errorf("failed to run migrations: %w", err)
+				}</span>
 
-        // Create queries instance
-        <span class="cov10" title="4">queries := New(sqlDB)
+			// Create queries instance
+			<span class="cov10" title="7">queries := New(sqlDB)
 
-        return &amp;DB{
-                DB:      sqlDB,
-                Queries: queries,
-        }, nil</span>
-}
+				return &amp;DB{
+				DB: sqlDB,
+				Queries: queries,
+				}, nil</span>
+			}
 
-// runMigrations runs the database migrations using goose
-func runMigrations(db *sql.DB) error <span class="cov10" title="4">{
-        goose.SetBaseFS(embedMigrations)
+			// runMigrations runs the database migrations using goose
+			func runMigrations(db *sql.DB) error <span class="cov10" title="7">{
+				goose.SetBaseFS(embedMigrations)
 
-        if err := goose.SetDialect("sqlite3"); err != nil </span><span class="cov0" title="0">{
-                return fmt.Errorf("failed to set goose dialect: %w", err)
-        }</span>
+				if err := goose.SetDialect("sqlite3"); err != nil </span><span class="cov0" title="0">{
+				return fmt.Errorf("failed to set goose dialect: %w", err)
+				}</span>
 
-        <span class="cov10" title="4">if err := goose.Up(db, "migrations"); err != nil </span><span class="cov0" title="0">{
-                return fmt.Errorf("failed to run migrations: %w", err)
-        }</span>
+			<span class="cov10" title="7">if err := goose.Up(db, "migrations"); err != nil </span><span
+				class="cov0" title="0">{
+				return fmt.Errorf("failed to run migrations: %w", err)
+				}</span>
 
-        <span class="cov10" title="4">log.Println("Database migrations completed successfully")
-        return nil</span>
-}
+			<span class="cov10" title="7">log.Println("Database migrations completed successfully")
+				return nil</span>
+			}
 
-// Close closes the database connection
-func (db *DB) Close() error <span class="cov10" title="4">{
-        return db.DB.Close()
-}</span>
+			// Close closes the database connection
+			func (db *DB) Close() error <span class="cov10" title="7">{
+				return db.DB.Close()
+				}</span>
 
-// GetDBPath returns the default database path
-func GetDBPath() string <span class="cov0" title="0">{
-        return "goDial.db"
-}</span>
-</pre>
-		
+			// GetDBPath returns the default database path
+			func GetDBPath() string <span class="cov0" title="0">{
+				return "goDial.db"
+				}</span>
+		</pre>
+
 		<pre class="file" id="file5" style="display: none">// Code generated by sqlc. DO NOT EDIT.
-// versions:
-//   sqlc v1.27.0
-// source: users.sql
+			// versions:
+			// sqlc v1.27.0
+			// source: users.sql
 
-package database
+			package database
 
-import (
-        "context"
-)
+			import (
+			"context"
+			)
 
-const createUser = `-- name: CreateUser :one
-INSERT INTO users (email, name)
-VALUES (?, ?)
-RETURNING id, email, name, created_at, updated_at, minutes
-`
+			const createUser = `-- name: CreateUser :one
+			INSERT INTO users (email, name)
+			VALUES (?, ?)
+			RETURNING id, email, name, created_at, updated_at, minutes
+			`
 
-type CreateUserParams struct {
-        Email string `json:"email"`
-        Name  string `json:"name"`
-}
+			type CreateUserParams struct {
+			Email string `json:"email"`
+			Name string `json:"name"`
+			}
 
-func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, error) <span class="cov8" title="1">{
-        row := q.db.QueryRowContext(ctx, createUser, arg.Email, arg.Name)
-        var i User
-        err := row.Scan(
-                &amp;i.ID,
-                &amp;i.Email,
-                &amp;i.Name,
-                &amp;i.CreatedAt,
-                &amp;i.UpdatedAt,
-                &amp;i.Minutes,
-        )
-        return i, err
-}</span>
+			func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, error) <span
+				class="cov7" title="7">{
+				row := q.db.QueryRowContext(ctx, createUser, arg.Email, arg.Name)
+				var i User
+				err := row.Scan(
+				&amp;i.ID,
+				&amp;i.Email,
+				&amp;i.Name,
+				&amp;i.CreatedAt,
+				&amp;i.UpdatedAt,
+				&amp;i.Minutes,
+				)
+				return i, err
+				}</span>
 
-const deleteUser = `-- name: DeleteUser :exec
-DELETE FROM users
-WHERE id = ?
-`
+			const deleteUser = `-- name: DeleteUser :exec
+			DELETE FROM users
+			WHERE id = ?
+			`
 
-func (q *Queries) DeleteUser(ctx context.Context, id int64) error <span class="cov0" title="0">{
-        _, err := q.db.ExecContext(ctx, deleteUser, id)
-        return err
-}</span>
+			func (q *Queries) DeleteUser(ctx context.Context, id int64) error <span class="cov0" title="0">{
+				_, err := q.db.ExecContext(ctx, deleteUser, id)
+				return err
+				}</span>
 
-const getUser = `-- name: GetUser :one
-SELECT id, email, name, created_at, updated_at, minutes FROM users
-WHERE id = ?
-`
+			const getUser = `-- name: GetUser :one
+			SELECT id, email, name, created_at, updated_at, minutes FROM users
+			WHERE id = ?
+			`
 
-func (q *Queries) GetUser(ctx context.Context, id int64) (User, error) <span class="cov8" title="1">{
-        row := q.db.QueryRowContext(ctx, getUser, id)
-        var i User
-        err := row.Scan(
-                &amp;i.ID,
-                &amp;i.Email,
-                &amp;i.Name,
-                &amp;i.CreatedAt,
-                &amp;i.UpdatedAt,
-                &amp;i.Minutes,
-        )
-        return i, err
-}</span>
+			func (q *Queries) GetUser(ctx context.Context, id int64) (User, error) <span class="cov1"
+				title="1">{
+				row := q.db.QueryRowContext(ctx, getUser, id)
+				var i User
+				err := row.Scan(
+				&amp;i.ID,
+				&amp;i.Email,
+				&amp;i.Name,
+				&amp;i.CreatedAt,
+				&amp;i.UpdatedAt,
+				&amp;i.Minutes,
+				)
+				return i, err
+				}</span>
 
-const getUserByEmail = `-- name: GetUserByEmail :one
-SELECT id, email, name, created_at, updated_at, minutes FROM users
-WHERE email = ?
-`
+			const getUserByEmail = `-- name: GetUserByEmail :one
+			SELECT id, email, name, created_at, updated_at, minutes FROM users
+			WHERE email = ?
+			`
 
-func (q *Queries) GetUserByEmail(ctx context.Context, email string) (User, error) <span class="cov0" title="0">{
-        row := q.db.QueryRowContext(ctx, getUserByEmail, email)
-        var i User
-        err := row.Scan(
-                &amp;i.ID,
-                &amp;i.Email,
-                &amp;i.Name,
-                &amp;i.CreatedAt,
-                &amp;i.UpdatedAt,
-                &amp;i.Minutes,
-        )
-        return i, err
-}</span>
+			func (q *Queries) GetUserByEmail(ctx context.Context, email string) (User, error) <span
+				class="cov0" title="0">{
+				row := q.db.QueryRowContext(ctx, getUserByEmail, email)
+				var i User
+				err := row.Scan(
+				&amp;i.ID,
+				&amp;i.Email,
+				&amp;i.Name,
+				&amp;i.CreatedAt,
+				&amp;i.UpdatedAt,
+				&amp;i.Minutes,
+				)
+				return i, err
+				}</span>
 
-const getUserMinutes = `-- name: GetUserMinutes :one
-SELECT minutes FROM users
-WHERE email = ?
-`
+			const getUserMinutes = `-- name: GetUserMinutes :one
+			SELECT minutes FROM users
+			WHERE email = ?
+			`
 
-func (q *Queries) GetUserMinutes(ctx context.Context, email string) (interface{}, error) <span class="cov0" title="0">{
-        row := q.db.QueryRowContext(ctx, getUserMinutes, email)
-        var minutes interface{}
-        err := row.Scan(&amp;minutes)
-        return minutes, err
-}</span>
+			func (q *Queries) GetUserMinutes(ctx context.Context, email string) (interface{}, error) <span
+				class="cov10" title="18">{
+				row := q.db.QueryRowContext(ctx, getUserMinutes, email)
+				var minutes interface{}
+				err := row.Scan(&amp;minutes)
+				return minutes, err
+				}</span>
 
-const listUsers = `-- name: ListUsers :many
-SELECT id, email, name, created_at, updated_at, minutes FROM users
-ORDER BY created_at DESC
-`
+			const listUsers = `-- name: ListUsers :many
+			SELECT id, email, name, created_at, updated_at, minutes FROM users
+			ORDER BY created_at DESC
+			`
 
-func (q *Queries) ListUsers(ctx context.Context) ([]User, error) <span class="cov0" title="0">{
-        rows, err := q.db.QueryContext(ctx, listUsers)
-        if err != nil </span><span class="cov0" title="0">{
-                return nil, err
-        }</span>
-        <span class="cov0" title="0">defer rows.Close()
-        items := []User{}
-        for rows.Next() </span><span class="cov0" title="0">{
-                var i User
-                if err := rows.Scan(
-                        &amp;i.ID,
-                        &amp;i.Email,
-                        &amp;i.Name,
-                        &amp;i.CreatedAt,
-                        &amp;i.UpdatedAt,
-                        &amp;i.Minutes,
-                ); err != nil </span><span class="cov0" title="0">{
-                        return nil, err
-                }</span>
-                <span class="cov0" title="0">items = append(items, i)</span>
-        }
-        <span class="cov0" title="0">if err := rows.Close(); err != nil </span><span class="cov0" title="0">{
-                return nil, err
-        }</span>
-        <span class="cov0" title="0">if err := rows.Err(); err != nil </span><span class="cov0" title="0">{
-                return nil, err
-        }</span>
-        <span class="cov0" title="0">return items, nil</span>
-}
+			func (q *Queries) ListUsers(ctx context.Context) ([]User, error) <span class="cov0" title="0">{
+				rows, err := q.db.QueryContext(ctx, listUsers)
+				if err != nil </span><span class="cov0" title="0">{
+				return nil, err
+				}</span>
+			<span class="cov0" title="0">defer rows.Close()
+				items := []User{}
+				for rows.Next() </span><span class="cov0" title="0">{
+				var i User
+				if err := rows.Scan(
+				&amp;i.ID,
+				&amp;i.Email,
+				&amp;i.Name,
+				&amp;i.CreatedAt,
+				&amp;i.UpdatedAt,
+				&amp;i.Minutes,
+				); err != nil </span><span class="cov0" title="0">{
+				return nil, err
+				}</span>
+			<span class="cov0" title="0">items = append(items, i)</span>
+			}
+			<span class="cov0" title="0">if err := rows.Close(); err != nil </span><span class="cov0"
+				title="0">{
+				return nil, err
+				}</span>
+			<span class="cov0" title="0">if err := rows.Err(); err != nil </span><span class="cov0"
+				title="0">{
+				return nil, err
+				}</span>
+			<span class="cov0" title="0">return items, nil</span>
+			}
 
-const updateUser = `-- name: UpdateUser :one
-UPDATE users
-SET name = ?, updated_at = CURRENT_TIMESTAMP
-WHERE id = ?
-RETURNING id, email, name, created_at, updated_at, minutes
-`
+			const updateUser = `-- name: UpdateUser :one
+			UPDATE users
+			SET name = ?, updated_at = CURRENT_TIMESTAMP
+			WHERE id = ?
+			RETURNING id, email, name, created_at, updated_at, minutes
+			`
 
-type UpdateUserParams struct {
-        Name string `json:"name"`
-        ID   int64  `json:"id"`
-}
+			type UpdateUserParams struct {
+			Name string `json:"name"`
+			ID int64 `json:"id"`
+			}
 
-func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (User, error) <span class="cov0" title="0">{
-        row := q.db.QueryRowContext(ctx, updateUser, arg.Name, arg.ID)
-        var i User
-        err := row.Scan(
-                &amp;i.ID,
-                &amp;i.Email,
-                &amp;i.Name,
-                &amp;i.CreatedAt,
-                &amp;i.UpdatedAt,
-                &amp;i.Minutes,
-        )
-        return i, err
-}</span>
-</pre>
-		
+			func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (User, error) <span
+				class="cov0" title="0">{
+				row := q.db.QueryRowContext(ctx, updateUser, arg.Name, arg.ID)
+				var i User
+				err := row.Scan(
+				&amp;i.ID,
+				&amp;i.Email,
+				&amp;i.Name,
+				&amp;i.CreatedAt,
+				&amp;i.UpdatedAt,
+				&amp;i.Minutes,
+				)
+				return i, err
+				}</span>
+		</pre>
+
 		<pre class="file" id="file6" style="display: none">package router
 
-import (
-        "fmt"
-        "goDial/internal/database"
-        "goDial/internal/templates/pages"
-        "net/http"
-)
+			import (
+			"fmt"
+			"goDial/internal/database"
+			"goDial/internal/templates/pages"
+			"net/http"
+			)
 
-func handleHomePage(w http.ResponseWriter, r *http.Request) <span class="cov10" title="121">{
-        pages.Home().Render(r.Context(), w)
-}</span>
+			func handleHomePage(w http.ResponseWriter, r *http.Request) <span class="cov10" title="121">{
+				pages.Home().Render(r.Context(), w)
+				}</span>
 
-func handleStripePage(db *database.DB) http.HandlerFunc <span class="cov5" title="9">{
-        return func(w http.ResponseWriter, r *http.Request) </span><span class="cov2" title="2">{
-                minutes, err := db.GetUserMinutes(r.Context(), "test@test.com")
-                if err != nil </span><span class="cov2" title="2">{
-                        fmt.Printf("handleStripePage(couldnt get minutes for user): %v\n", err)
-                        minutes = 0
-                }</span>
+			func handleStripePage(db *database.DB) http.HandlerFunc <span class="cov6" title="18">{
+				return func(w http.ResponseWriter, r *http.Request) </span><span class="cov6"
+				title="22">{
+				minutes, err := db.GetUserMinutes(r.Context(), "test@test.com")
+				if err != nil </span><span class="cov3" title="4">{
+				fmt.Printf("handleStripePage(couldnt get minutes for user): %v\n", err)
+				minutes = 0
+				}</span>
 
-                <span class="cov2" title="2">minutesInt := 0
+			<span class="cov6" title="22">minutesInt := 0
 
-                if m, ok := minutes.(int64); ok </span><span class="cov0" title="0">{
-                        minutesInt = int(m)
-                }</span>
+				if m, ok := minutes.(int64); ok </span><span class="cov6" title="18">{
+				minutesInt = int(m)
+				}</span>
 
-                <span class="cov2" title="2">pages.Stripe(minutesInt).Render(r.Context(), w)</span>
-        }
-}
-</pre>
-		
+			<span class="cov6" title="22">pages.Stripe(minutesInt).Render(r.Context(), w)</span>
+			}
+			}
+		</pre>
+
 		<pre class="file" id="file7" style="display: none">package router
 
-import (
-        "fmt"
-        "goDial/internal/database"
-        "net/http"
-        "os"
-        "time"
-)
+			import (
+			"fmt"
+			"goDial/internal/database"
+			"net/http"
+			"os"
+			"time"
+			)
 
-func NewRouter(db *database.DB) http.Handler <span class="cov10" title="9">{
-        mux := http.NewServeMux()
+			func NewRouter(db *database.DB) http.Handler <span class="cov10" title="9">{
+				mux := http.NewServeMux()
 
-        // Health check endpoint
-        mux.HandleFunc("/health", handleHealthCheck)
+				// Health check endpoint
+				mux.HandleFunc("/health", handleHealthCheck)
 
-        // Serve static files
-        fs := http.FileServer(http.Dir("static"))
-        mux.Handle("/static/", http.StripPrefix("/static/", fs))
+				// Serve static files
+				fs := http.FileServer(http.Dir("static"))
+				mux.Handle("/static/", http.StripPrefix("/static/", fs))
 
-        // Live reload endpoint for development
-        mux.HandleFunc("/live-reload", handleLiveReload)
+				// Live reload endpoint for development
+				mux.HandleFunc("/live-reload", handleLiveReload)
 
-        // Routes
-        mux.HandleFunc("/", handleHomePage)
-        mux.HandleFunc("/stripePage", handleStripePage(db))
+				// Routes
+				mux.HandleFunc("/", handleHomePage)
+				mux.HandleFunc("/stripePage", handleStripePage(db))
 
-        return mux
-}</span>
+				return mux
+				}</span>
 
-// handleHealthCheck provides a simple health check endpoint
-func handleHealthCheck(w http.ResponseWriter, r *http.Request) <span class="cov1" title="1">{
-        w.Header().Set("Content-Type", "application/json")
-        w.WriteHeader(http.StatusOK)
-        fmt.Fprintf(w, `{"status":"ok","timestamp":"%s"}`, time.Now().Format(time.RFC3339))
-}</span>
+			// handleHealthCheck provides a simple health check endpoint
+			func handleHealthCheck(w http.ResponseWriter, r *http.Request) <span class="cov1" title="1">{
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusOK)
+				fmt.Fprintf(w, `{"status":"ok","timestamp":"%s"}`, time.Now().Format(time.RFC3339))
+				}</span>
 
-// handleLiveReload provides server-sent events for live reload functionality
-func handleLiveReload(w http.ResponseWriter, r *http.Request) <span class="cov0" title="0">{
-        // Only enable in development (when running through Air)
-        if os.Getenv("AIR_ENABLED") == "" &amp;&amp; os.Getenv("GO_ENV") != "development" </span><span class="cov0" title="0">{
-                http.NotFound(w, r)
-                return
-        }</span>
+			// handleLiveReload provides server-sent events for live reload functionality
+			func handleLiveReload(w http.ResponseWriter, r *http.Request) <span class="cov0" title="0">{
+				// Only enable in development (when running through Air)
+				if os.Getenv("AIR_ENABLED") == "" &amp;&amp; os.Getenv("GO_ENV") != "development"
+			</span><span class="cov0" title="0">{
+				http.NotFound(w, r)
+				return
+				}</span>
 
-        <span class="cov0" title="0">w.Header().Set("Content-Type", "text/event-stream")
-        w.Header().Set("Cache-Control", "no-cache")
-        w.Header().Set("Connection", "keep-alive")
-        w.Header().Set("Access-Control-Allow-Origin", "*")
+			<span class="cov0" title="0">w.Header().Set("Content-Type", "text/event-stream")
+				w.Header().Set("Cache-Control", "no-cache")
+				w.Header().Set("Connection", "keep-alive")
+				w.Header().Set("Access-Control-Allow-Origin", "*")
 
-        // Send initial connection message
-        fmt.Fprintf(w, "data: connected\n\n")
+				// Send initial connection message
+				fmt.Fprintf(w, "data: connected\n\n")
 
-        // Flush the response
-        if flusher, ok := w.(http.Flusher); ok </span><span class="cov0" title="0">{
-                flusher.Flush()
-        }</span>
+				// Flush the response
+				if flusher, ok := w.(http.Flusher); ok </span><span class="cov0" title="0">{
+				flusher.Flush()
+				}</span>
 
-        // Keep the connection alive and send periodic heartbeats
-        <span class="cov0" title="0">ctx := r.Context()
-        ticker := time.NewTicker(30 * time.Second)
-        defer ticker.Stop()
+			// Keep the connection alive and send periodic heartbeats
+			<span class="cov0" title="0">ctx := r.Context()
+				ticker := time.NewTicker(30 * time.Second)
+				defer ticker.Stop()
 
-        for </span><span class="cov0" title="0">{
-                select </span>{
-                case &lt;-ctx.Done():<span class="cov0" title="0">
-                        // Client disconnected
-                        return</span>
-                case &lt;-ticker.C:<span class="cov0" title="0">
-                        // Send heartbeat to keep connection alive
-                        fmt.Fprintf(w, "data: heartbeat\n\n")
-                        if flusher, ok := w.(http.Flusher); ok </span><span class="cov0" title="0">{
-                                flusher.Flush()
-                        }</span>
-                }
-        }
-}
-</pre>
-		
+				for </span><span class="cov0" title="0">{
+				select </span>{
+			case &lt;-ctx.Done():<span class="cov0" title="0">
+				// Client disconnected
+				return</span>
+			case &lt;-ticker.C:<span class="cov0" title="0">
+				// Send heartbeat to keep connection alive
+				fmt.Fprintf(w, "data: heartbeat\n\n")
+				if flusher, ok := w.(http.Flusher); ok </span><span class="cov0" title="0">{
+				flusher.Flush()
+				}</span>
+			}
+			}
+			}
+		</pre>
+
 		<pre class="file" id="file8" style="display: none">package stripe
 
-import (
-        "fmt"
-        "os"
-)
+			import (
+			"fmt"
+			"os"
+			)
 
-func GetStripePaymentForm() <span class="cov0" title="0">{
-        myStripeKey := os.Getenv("STRIPE_SECRET_API_KEY")
-        fmt.Println(myStripeKey)
+			func GetStripePaymentForm() <span class="cov0" title="0">{
+				myStripeKey := os.Getenv("STRIPE_SECRET_API_KEY")
+				fmt.Println(myStripeKey)
 
-}</span>
-</pre>
-		
+				}</span>
+		</pre>
+
 		<pre class="file" id="file9" style="display: none">// Code generated by templ - DO NOT EDIT.
 
-// templ: version: v0.2.793
-package components
+			// templ: version: v0.2.793
+			package components
 
-//lint:file-ignore SA4006 This context is only used if a nested component is present.
+			//lint:file-ignore SA4006 This context is only used if a nested component is present.
 
-import "github.com/a-h/templ"
-import templruntime "github.com/a-h/templ/runtime"
+			import "github.com/a-h/templ"
+			import templruntime "github.com/a-h/templ/runtime"
 
-func Button(text string, route string, isPrimary bool, isNewTab bool) templ.Component <span class="cov10" title="484">{
-        return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) </span><span class="cov10" title="484">{
-                templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
-                if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_CtxErr
-                }</span>
-                <span class="cov10" title="484">templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
-                if !templ_7745c5c3_IsBuffer </span><span class="cov0" title="0">{
-                        defer func() </span><span class="cov0" title="0">{
-                                templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
-                                if templ_7745c5c3_Err == nil </span><span class="cov0" title="0">{
-                                        templ_7745c5c3_Err = templ_7745c5c3_BufErr
-                                }</span>
-                        }()
-                }
-                <span class="cov10" title="484">ctx = templ.InitializeContext(ctx)
-                templ_7745c5c3_Var1 := templ.GetChildren(ctx)
-                if templ_7745c5c3_Var1 == nil </span><span class="cov0" title="0">{
-                        templ_7745c5c3_Var1 = templ.NopComponent
-                }</span>
-                <span class="cov10" title="484">ctx = templ.ClearChildren(ctx)
-                if route != "" </span><span class="cov10" title="484">{
-                        if isNewTab </span><span class="cov7" title="121">{
-                                var templ_7745c5c3_Var2 = []any{
-                                        "btn transition-all duration-200 hover:scale-105 inline-block text-center",
-                                        templ.KV("bg-primary", isPrimary),
-                                        templ.KV("bg-secondary", !isPrimary),
-                                        templ.KV("shadow-lg hover:shadow-xl", isPrimary)}
-                                templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var2...)
-                                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                        return templ_7745c5c3_Err
-                                }</span>
-                                <span class="cov7" title="121">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;a class=\"")
-                                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                        return templ_7745c5c3_Err
-                                }</span>
-                                <span class="cov7" title="121">var templ_7745c5c3_Var3 string
-                                templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var2).String())
-                                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                        return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/components/button.templ`, Line: 1, Col: 0}
-                                }</span>
-                                <span class="cov7" title="121">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
-                                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                        return templ_7745c5c3_Err
-                                }</span>
-                                <span class="cov7" title="121">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" href=\"")
-                                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                        return templ_7745c5c3_Err
-                                }</span>
-                                <span class="cov7" title="121">var templ_7745c5c3_Var4 templ.SafeURL = templ.URL(route)
-                                _, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var4)))
-                                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                        return templ_7745c5c3_Err
-                                }</span>
-                                <span class="cov7" title="121">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" target=\"_blank\"&gt;")
-                                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                        return templ_7745c5c3_Err
-                                }</span>
-                                <span class="cov7" title="121">var templ_7745c5c3_Var5 string
-                                templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(text)
-                                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                        return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/components/button.templ`, Line: 16, Col: 22}
-                                }</span>
-                                <span class="cov7" title="121">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
-                                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                        return templ_7745c5c3_Err
-                                }</span>
-                                <span class="cov7" title="121">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;/a&gt;")
-                                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                        return templ_7745c5c3_Err
-                                }</span>
-                        } else<span class="cov9" title="363"> {
-                                var templ_7745c5c3_Var6 = []any{
-                                        "btn transition-all duration-200 hover:scale-105 inline-block text-center",
-                                        templ.KV("bg-primary", isPrimary),
-                                        templ.KV("bg-secondary", !isPrimary),
-                                        templ.KV("shadow-lg hover:shadow-xl", isPrimary)}
-                                templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var6...)
-                                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                        return templ_7745c5c3_Err
-                                }</span>
-                                <span class="cov9" title="363">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;a class=\"")
-                                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                        return templ_7745c5c3_Err
-                                }</span>
-                                <span class="cov9" title="363">var templ_7745c5c3_Var7 string
-                                templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var6).String())
-                                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                        return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/components/button.templ`, Line: 1, Col: 0}
-                                }</span>
-                                <span class="cov9" title="363">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
-                                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                        return templ_7745c5c3_Err
-                                }</span>
-                                <span class="cov9" title="363">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" href=\"")
-                                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                        return templ_7745c5c3_Err
-                                }</span>
-                                <span class="cov9" title="363">var templ_7745c5c3_Var8 templ.SafeURL = templ.URL(route)
-                                _, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var8)))
-                                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                        return templ_7745c5c3_Err
-                                }</span>
-                                <span class="cov9" title="363">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"&gt;")
-                                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                        return templ_7745c5c3_Err
-                                }</span>
-                                <span class="cov9" title="363">var templ_7745c5c3_Var9 string
-                                templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(text)
-                                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                        return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/components/button.templ`, Line: 28, Col: 22}
-                                }</span>
-                                <span class="cov9" title="363">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
-                                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                        return templ_7745c5c3_Err
-                                }</span>
-                                <span class="cov9" title="363">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;/a&gt;")
-                                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                        return templ_7745c5c3_Err
-                                }</span>
-                        }
-                } else<span class="cov0" title="0"> {
-                        var templ_7745c5c3_Var10 = []any{
-                                "btn transition-all duration-200 hover:scale-105",
-                                templ.KV("bg-primary", isPrimary),
-                                templ.KV("bg-secondary", !isPrimary),
-                                templ.KV("shadow-lg hover:shadow-xl", isPrimary)}
-                        templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var10...)
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ_7745c5c3_Err
-                        }</span>
-                        <span class="cov0" title="0">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;button class=\"")
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ_7745c5c3_Err
-                        }</span>
-                        <span class="cov0" title="0">var templ_7745c5c3_Var11 string
-                        templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var10).String())
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/components/button.templ`, Line: 1, Col: 0}
-                        }</span>
-                        <span class="cov0" title="0">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ_7745c5c3_Err
-                        }</span>
-                        <span class="cov0" title="0">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"&gt;")
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ_7745c5c3_Err
-                        }</span>
-                        <span class="cov0" title="0">var templ_7745c5c3_Var12 string
-                        templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(text)
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/components/button.templ`, Line: 40, Col: 18}
-                        }</span>
-                        <span class="cov0" title="0">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ_7745c5c3_Err
-                        }</span>
-                        <span class="cov0" title="0">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;/button&gt;")
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ_7745c5c3_Err
-                        }</span>
-                }
-                <span class="cov10" title="484">return templ_7745c5c3_Err</span>
-        })
-}
+			func Button(text string, route string, isPrimary bool, isNewTab bool) templ.Component <span
+				class="cov10" title="484">{
+				return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input
+				templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) </span><span
+				class="cov10" title="484">{
+				templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+				if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil </span><span
+				class="cov0" title="0">{
+				return templ_7745c5c3_CtxErr
+				}</span>
+			<span class="cov10" title="484">templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer :=
+				templruntime.GetBuffer(templ_7745c5c3_W)
+				if !templ_7745c5c3_IsBuffer </span><span class="cov0" title="0">{
+				defer func() </span><span class="cov0" title="0">{
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil </span><span class="cov0" title="0">{
+				templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}</span>
+			}()
+			}
+			<span class="cov10" title="484">ctx = templ.InitializeContext(ctx)
+				templ_7745c5c3_Var1 := templ.GetChildren(ctx)
+				if templ_7745c5c3_Var1 == nil </span><span class="cov0" title="0">{
+				templ_7745c5c3_Var1 = templ.NopComponent
+				}</span>
+			<span class="cov10" title="484">ctx = templ.ClearChildren(ctx)
+				if route != "" </span><span class="cov10" title="484">{
+				if isNewTab </span><span class="cov7" title="121">{
+				var templ_7745c5c3_Var2 = []any{
+				"btn transition-all duration-200 hover:scale-105 inline-block text-center",
+				templ.KV("bg-primary", isPrimary),
+				templ.KV("bg-secondary", !isPrimary),
+				templ.KV("shadow-lg hover:shadow-xl", isPrimary)}
+				templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer,
+				templ_7745c5c3_Var2...)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov7" title="121">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;a
+				class=\"")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov7" title="121">var templ_7745c5c3_Var3 string
+				templ_7745c5c3_Var3, templ_7745c5c3_Err =
+				templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var2).String())
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ.Error{Err: templ_7745c5c3_Err, FileName:
+				`internal/templates/components/button.templ`, Line: 1, Col: 0}
+				}</span>
+			<span class="cov7" title="121">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov7" title="121">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"
+				href=\"")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov7" title="121">var templ_7745c5c3_Var4 templ.SafeURL = templ.URL(route)
+				_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var4)))
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov7" title="121">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"
+				target=\"_blank\"&gt;")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov7" title="121">var templ_7745c5c3_Var5 string
+				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(text)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ.Error{Err: templ_7745c5c3_Err, FileName:
+				`internal/templates/components/button.templ`, Line: 16, Col: 22}
+				}</span>
+			<span class="cov7" title="121">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov7" title="121">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString("&lt;/a&gt;")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			} else<span class="cov9" title="363"> {
+				var templ_7745c5c3_Var6 = []any{
+				"btn transition-all duration-200 hover:scale-105 inline-block text-center",
+				templ.KV("bg-primary", isPrimary),
+				templ.KV("bg-secondary", !isPrimary),
+				templ.KV("shadow-lg hover:shadow-xl", isPrimary)}
+				templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer,
+				templ_7745c5c3_Var6...)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov9" title="363">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;a
+				class=\"")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov9" title="363">var templ_7745c5c3_Var7 string
+				templ_7745c5c3_Var7, templ_7745c5c3_Err =
+				templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var6).String())
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ.Error{Err: templ_7745c5c3_Err, FileName:
+				`internal/templates/components/button.templ`, Line: 1, Col: 0}
+				}</span>
+			<span class="cov9" title="363">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov9" title="363">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"
+				href=\"")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov9" title="363">var templ_7745c5c3_Var8 templ.SafeURL = templ.URL(route)
+				_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var8)))
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov9" title="363">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString("\"&gt;")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov9" title="363">var templ_7745c5c3_Var9 string
+				templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(text)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ.Error{Err: templ_7745c5c3_Err, FileName:
+				`internal/templates/components/button.templ`, Line: 28, Col: 22}
+				}</span>
+			<span class="cov9" title="363">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov9" title="363">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString("&lt;/a&gt;")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			}
+			} else<span class="cov0" title="0"> {
+				var templ_7745c5c3_Var10 = []any{
+				"btn transition-all duration-200 hover:scale-105",
+				templ.KV("bg-primary", isPrimary),
+				templ.KV("bg-secondary", !isPrimary),
+				templ.KV("shadow-lg hover:shadow-xl", isPrimary)}
+				templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer,
+				templ_7745c5c3_Var10...)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov0" title="0">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString("&lt;button class=\"")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov0" title="0">var templ_7745c5c3_Var11 string
+				templ_7745c5c3_Var11, templ_7745c5c3_Err =
+				templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var10).String())
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ.Error{Err: templ_7745c5c3_Err, FileName:
+				`internal/templates/components/button.templ`, Line: 1, Col: 0}
+				}</span>
+			<span class="cov0" title="0">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov0" title="0">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"&gt;")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov0" title="0">var templ_7745c5c3_Var12 string
+				templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(text)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ.Error{Err: templ_7745c5c3_Err, FileName:
+				`internal/templates/components/button.templ`, Line: 40, Col: 18}
+				}</span>
+			<span class="cov0" title="0">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov0" title="0">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString("&lt;/button&gt;")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			}
+			<span class="cov10" title="484">return templ_7745c5c3_Err</span>
+			})
+			}
 
-var _ = templruntime.GeneratedTemplate
-</pre>
-		
+			var _ = templruntime.GeneratedTemplate
+		</pre>
+
 		<pre class="file" id="file10" style="display: none">// Code generated by templ - DO NOT EDIT.
 
-// templ: version: v0.2.793
-package components
+			// templ: version: v0.2.793
+			package components
 
-//lint:file-ignore SA4006 This context is only used if a nested component is present.
+			//lint:file-ignore SA4006 This context is only used if a nested component is present.
 
-import "github.com/a-h/templ"
-import templruntime "github.com/a-h/templ/runtime"
+			import "github.com/a-h/templ"
+			import templruntime "github.com/a-h/templ/runtime"
 
-func Card(title string) templ.Component <span class="cov10" title="363">{
-        return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) </span><span class="cov10" title="363">{
-                templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
-                if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_CtxErr
-                }</span>
-                <span class="cov10" title="363">templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
-                if !templ_7745c5c3_IsBuffer </span><span class="cov0" title="0">{
-                        defer func() </span><span class="cov0" title="0">{
-                                templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
-                                if templ_7745c5c3_Err == nil </span><span class="cov0" title="0">{
-                                        templ_7745c5c3_Err = templ_7745c5c3_BufErr
-                                }</span>
-                        }()
-                }
-                <span class="cov10" title="363">ctx = templ.InitializeContext(ctx)
-                templ_7745c5c3_Var1 := templ.GetChildren(ctx)
-                if templ_7745c5c3_Var1 == nil </span><span class="cov0" title="0">{
-                        templ_7745c5c3_Var1 = templ.NopComponent
-                }</span>
-                <span class="cov10" title="363">ctx = templ.ClearChildren(ctx)
-                _, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;div class=\"card bg-base-200 shadow-xl border border-base-300 hover:shadow-2xl transition-all duration-300 hover:scale-105\"&gt;&lt;div class=\"card-body\"&gt;&lt;h2 class=\"card-title text-primary text-2xl mb-4\"&gt;")
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="363">var templ_7745c5c3_Var2 string
-                templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(title)
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/components/cards.templ`, Line: 6, Col: 65}
-                }</span>
-                <span class="cov10" title="363">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="363">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;/h2&gt;&lt;form class=\"space-y-4\"&gt;&lt;div class=\"form-control\"&gt;&lt;label class=\"label\"&gt;&lt;span class=\"label-text text-base-content/80\"&gt;Your Message&lt;/span&gt;&lt;/label&gt; &lt;textarea name=\"message\" class=\"textarea textarea-bordered bg-base-100 border-base-300 focus:border-primary focus:outline-none h-32 resize-none\" placeholder=\"Type your message here...\"&gt;&lt;/textarea&gt;&lt;/div&gt;&lt;div class=\"card-actions justify-end\"&gt;")
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="363">templ_7745c5c3_Err = Button("Send Message", "/???", true, false).Render(ctx, templ_7745c5c3_Buffer)
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="363">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;/div&gt;&lt;/form&gt;&lt;/div&gt;&lt;/div&gt;")
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="363">return templ_7745c5c3_Err</span>
-        })
-}
+			func Card(title string) templ.Component <span class="cov10" title="363">{
+				return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input
+				templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) </span><span
+				class="cov10" title="363">{
+				templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+				if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil </span><span
+				class="cov0" title="0">{
+				return templ_7745c5c3_CtxErr
+				}</span>
+			<span class="cov10" title="363">templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer :=
+				templruntime.GetBuffer(templ_7745c5c3_W)
+				if !templ_7745c5c3_IsBuffer </span><span class="cov0" title="0">{
+				defer func() </span><span class="cov0" title="0">{
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil </span><span class="cov0" title="0">{
+				templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}</span>
+			}()
+			}
+			<span class="cov10" title="363">ctx = templ.InitializeContext(ctx)
+				templ_7745c5c3_Var1 := templ.GetChildren(ctx)
+				if templ_7745c5c3_Var1 == nil </span><span class="cov0" title="0">{
+				templ_7745c5c3_Var1 = templ.NopComponent
+				}</span>
+			<span class="cov10" title="363">ctx = templ.ClearChildren(ctx)
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;div class=\"card
+				bg-base-200 shadow-xl border border-base-300 hover:shadow-2xl transition-all
+				duration-300 hover:scale-105\"&gt;&lt;div class=\"card-body\"&gt;&lt;h2
+				class=\"card-title text-primary text-2xl mb-4\"&gt;")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="363">var templ_7745c5c3_Var2 string
+				templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(title)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ.Error{Err: templ_7745c5c3_Err, FileName:
+				`internal/templates/components/cards.templ`, Line: 6, Col: 65}
+				}</span>
+			<span class="cov10" title="363">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="363">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString("&lt;/h2&gt;&lt;form class=\"space-y-4\"&gt;&lt;div
+				class=\"form-control\"&gt;&lt;label class=\"label\"&gt;&lt;span class=\"label-text
+				text-base-content/80\"&gt;Your Message&lt;/span&gt;&lt;/label&gt; &lt;textarea
+				name=\"message\" class=\"textarea textarea-bordered bg-base-100 border-base-300
+				focus:border-primary focus:outline-none h-32 resize-none\" placeholder=\"Type your
+				message here...\"&gt;&lt;/textarea&gt;&lt;/div&gt;&lt;div class=\"card-actions
+				justify-end\"&gt;")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="363">templ_7745c5c3_Err = Button("Send Message", "/???", true,
+				false).Render(ctx, templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="363">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString("&lt;/div&gt;&lt;/form&gt;&lt;/div&gt;&lt;/div&gt;")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="363">return templ_7745c5c3_Err</span>
+			})
+			}
 
-func SimpleCard(title string) templ.Component <span class="cov3" title="6">{
-        return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) </span><span class="cov3" title="6">{
-                templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
-                if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_CtxErr
-                }</span>
-                <span class="cov3" title="6">templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
-                if !templ_7745c5c3_IsBuffer </span><span class="cov0" title="0">{
-                        defer func() </span><span class="cov0" title="0">{
-                                templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
-                                if templ_7745c5c3_Err == nil </span><span class="cov0" title="0">{
-                                        templ_7745c5c3_Err = templ_7745c5c3_BufErr
-                                }</span>
-                        }()
-                }
-                <span class="cov3" title="6">ctx = templ.InitializeContext(ctx)
-                templ_7745c5c3_Var3 := templ.GetChildren(ctx)
-                if templ_7745c5c3_Var3 == nil </span><span class="cov0" title="0">{
-                        templ_7745c5c3_Var3 = templ.NopComponent
-                }</span>
-                <span class="cov3" title="6">ctx = templ.ClearChildren(ctx)
-                _, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;div class=\"card bg-base-200 shadow-xl border border-base-300 hover:shadow-2xl transition-all duration-300 hover:scale-105\"&gt;&lt;div class=\"card-body\"&gt;&lt;h2 class=\"card-title text-primary text-xl mb-3\"&gt;")
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov3" title="6">var templ_7745c5c3_Var4 string
-                templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(title)
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/components/cards.templ`, Line: 29, Col: 64}
-                }</span>
-                <span class="cov3" title="6">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov3" title="6">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;/h2&gt;&lt;p class=\"text-base-content/70\"&gt;This is a simple card component for ")
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov3" title="6">var templ_7745c5c3_Var5 string
-                templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(title)
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/components/cards.templ`, Line: 30, Col: 83}
-                }</span>
-                <span class="cov3" title="6">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov3" title="6">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(".&lt;/p&gt;&lt;div class=\"card-actions justify-end mt-4\"&gt;&lt;button class=\"btn btn-outline btn-primary btn-sm\"&gt;Learn More&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;")
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov3" title="6">return templ_7745c5c3_Err</span>
-        })
-}
+			func SimpleCard(title string) templ.Component <span class="cov7" title="66">{
+				return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input
+				templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) </span><span
+				class="cov7" title="66">{
+				templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+				if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil </span><span
+				class="cov0" title="0">{
+				return templ_7745c5c3_CtxErr
+				}</span>
+			<span class="cov7" title="66">templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer :=
+				templruntime.GetBuffer(templ_7745c5c3_W)
+				if !templ_7745c5c3_IsBuffer </span><span class="cov0" title="0">{
+				defer func() </span><span class="cov0" title="0">{
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil </span><span class="cov0" title="0">{
+				templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}</span>
+			}()
+			}
+			<span class="cov7" title="66">ctx = templ.InitializeContext(ctx)
+				templ_7745c5c3_Var3 := templ.GetChildren(ctx)
+				if templ_7745c5c3_Var3 == nil </span><span class="cov0" title="0">{
+				templ_7745c5c3_Var3 = templ.NopComponent
+				}</span>
+			<span class="cov7" title="66">ctx = templ.ClearChildren(ctx)
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;div class=\"card
+				bg-base-200 shadow-xl border border-base-300 hover:shadow-2xl transition-all
+				duration-300 hover:scale-105\"&gt;&lt;div class=\"card-body\"&gt;&lt;h2
+				class=\"card-title text-primary text-xl mb-3\"&gt;")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov7" title="66">var templ_7745c5c3_Var4 string
+				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(title)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ.Error{Err: templ_7745c5c3_Err, FileName:
+				`internal/templates/components/cards.templ`, Line: 29, Col: 64}
+				}</span>
+			<span class="cov7" title="66">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov7" title="66">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString("&lt;/h2&gt;&lt;p
+				class=\"text-base-content/70\"&gt;This is a simple card component for ")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov7" title="66">var templ_7745c5c3_Var5 string
+				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(title)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ.Error{Err: templ_7745c5c3_Err, FileName:
+				`internal/templates/components/cards.templ`, Line: 30, Col: 83}
+				}</span>
+			<span class="cov7" title="66">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov7" title="66">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString(".&lt;/p&gt;&lt;div class=\"card-actions justify-end
+				mt-4\"&gt;&lt;button class=\"btn btn-outline btn-primary btn-sm\"&gt;Learn
+				More&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov7" title="66">return templ_7745c5c3_Err</span>
+			})
+			}
 
-var _ = templruntime.GeneratedTemplate
-</pre>
-		
+			var _ = templruntime.GeneratedTemplate
+		</pre>
+
 		<pre class="file" id="file11" style="display: none">// Code generated by templ - DO NOT EDIT.
 
-// templ: version: v0.2.793
-package components
+			// templ: version: v0.2.793
+			package components
 
-//lint:file-ignore SA4006 This context is only used if a nested component is present.
+			//lint:file-ignore SA4006 This context is only used if a nested component is present.
 
-import "github.com/a-h/templ"
-import templruntime "github.com/a-h/templ/runtime"
+			import "github.com/a-h/templ"
+			import templruntime "github.com/a-h/templ/runtime"
 
-func Input(label string, inputType string, name string, placeholder string) templ.Component <span class="cov10" title="484">{
-        return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) </span><span class="cov10" title="484">{
-                templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
-                if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_CtxErr
-                }</span>
-                <span class="cov10" title="484">templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
-                if !templ_7745c5c3_IsBuffer </span><span class="cov0" title="0">{
-                        defer func() </span><span class="cov0" title="0">{
-                                templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
-                                if templ_7745c5c3_Err == nil </span><span class="cov0" title="0">{
-                                        templ_7745c5c3_Err = templ_7745c5c3_BufErr
-                                }</span>
-                        }()
-                }
-                <span class="cov10" title="484">ctx = templ.InitializeContext(ctx)
-                templ_7745c5c3_Var1 := templ.GetChildren(ctx)
-                if templ_7745c5c3_Var1 == nil </span><span class="cov0" title="0">{
-                        templ_7745c5c3_Var1 = templ.NopComponent
-                }</span>
-                <span class="cov10" title="484">ctx = templ.ClearChildren(ctx)
-                _, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;div class=\"form-control w-full max-w-xl mb-8\"&gt;&lt;label class=\"label text-2xl text-red-400 mb-4\"&gt;&lt;span class=\"label-text text-base-content/80\"&gt;")
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="484">var templ_7745c5c3_Var2 string
-                templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(label)
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/components/forms.templ`, Line: 7, Col: 61}
-                }</span>
-                <span class="cov10" title="484">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="484">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;/span&gt;&lt;/label&gt; &lt;input type=\"")
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="484">var templ_7745c5c3_Var3 string
-                templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(inputType)
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/components/forms.templ`, Line: 10, Col: 24}
-                }</span>
-                <span class="cov10" title="484">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="484">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" name=\"")
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="484">var templ_7745c5c3_Var4 string
-                templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(name)
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/components/forms.templ`, Line: 11, Col: 19}
-                }</span>
-                <span class="cov10" title="484">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="484">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" placeholder=\"")
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="484">var templ_7745c5c3_Var5 string
-                templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(placeholder)
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/components/forms.templ`, Line: 12, Col: 33}
-                }</span>
-                <span class="cov10" title="484">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="484">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"input input-bordered bg-base-100 border-base-300 focus:border-primary focus:outline-none w-full\"&gt;&lt;/div&gt;")
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="484">return templ_7745c5c3_Err</span>
-        })
-}
+			func Input(label string, inputType string, name string, placeholder string) templ.Component
+			<span class="cov10" title="484">{
+				return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input
+				templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) </span><span
+				class="cov10" title="484">{
+				templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+				if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil </span><span
+				class="cov0" title="0">{
+				return templ_7745c5c3_CtxErr
+				}</span>
+			<span class="cov10" title="484">templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer :=
+				templruntime.GetBuffer(templ_7745c5c3_W)
+				if !templ_7745c5c3_IsBuffer </span><span class="cov0" title="0">{
+				defer func() </span><span class="cov0" title="0">{
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil </span><span class="cov0" title="0">{
+				templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}</span>
+			}()
+			}
+			<span class="cov10" title="484">ctx = templ.InitializeContext(ctx)
+				templ_7745c5c3_Var1 := templ.GetChildren(ctx)
+				if templ_7745c5c3_Var1 == nil </span><span class="cov0" title="0">{
+				templ_7745c5c3_Var1 = templ.NopComponent
+				}</span>
+			<span class="cov10" title="484">ctx = templ.ClearChildren(ctx)
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;div class=\"form-control
+				w-full max-w-xl mb-8\"&gt;&lt;label class=\"label text-2xl text-red-400
+				mb-4\"&gt;&lt;span class=\"label-text text-base-content/80\"&gt;")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="484">var templ_7745c5c3_Var2 string
+				templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(label)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ.Error{Err: templ_7745c5c3_Err, FileName:
+				`internal/templates/components/forms.templ`, Line: 7, Col: 61}
+				}</span>
+			<span class="cov10" title="484">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="484">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString("&lt;/span&gt;&lt;/label&gt; &lt;input type=\"")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="484">var templ_7745c5c3_Var3 string
+				templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(inputType)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ.Error{Err: templ_7745c5c3_Err, FileName:
+				`internal/templates/components/forms.templ`, Line: 10, Col: 24}
+				}</span>
+			<span class="cov10" title="484">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="484">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"
+				name=\"")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="484">var templ_7745c5c3_Var4 string
+				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(name)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ.Error{Err: templ_7745c5c3_Err, FileName:
+				`internal/templates/components/forms.templ`, Line: 11, Col: 19}
+				}</span>
+			<span class="cov10" title="484">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="484">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"
+				placeholder=\"")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="484">var templ_7745c5c3_Var5 string
+				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(placeholder)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ.Error{Err: templ_7745c5c3_Err, FileName:
+				`internal/templates/components/forms.templ`, Line: 12, Col: 33}
+				}</span>
+			<span class="cov10" title="484">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="484">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"
+				class=\"input input-bordered bg-base-100 border-base-300 focus:border-primary
+				focus:outline-none w-full\"&gt;&lt;/div&gt;")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="484">return templ_7745c5c3_Err</span>
+			})
+			}
 
-var _ = templruntime.GeneratedTemplate
-</pre>
-		
+			var _ = templruntime.GeneratedTemplate
+		</pre>
+
 		<pre class="file" id="file12" style="display: none">// Code generated by templ - DO NOT EDIT.
 
-// templ: version: v0.2.793
-package components
+			// templ: version: v0.2.793
+			package components
 
-//lint:file-ignore SA4006 This context is only used if a nested component is present.
+			//lint:file-ignore SA4006 This context is only used if a nested component is present.
 
-import "github.com/a-h/templ"
-import templruntime "github.com/a-h/templ/runtime"
+			import "github.com/a-h/templ"
+			import templruntime "github.com/a-h/templ/runtime"
 
-func Navbar() templ.Component <span class="cov10" title="123">{
-        return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) </span><span class="cov10" title="123">{
-                templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
-                if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_CtxErr
-                }</span>
-                <span class="cov10" title="123">templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
-                if !templ_7745c5c3_IsBuffer </span><span class="cov0" title="0">{
-                        defer func() </span><span class="cov0" title="0">{
-                                templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
-                                if templ_7745c5c3_Err == nil </span><span class="cov0" title="0">{
-                                        templ_7745c5c3_Err = templ_7745c5c3_BufErr
-                                }</span>
-                        }()
-                }
-                <span class="cov10" title="123">ctx = templ.InitializeContext(ctx)
-                templ_7745c5c3_Var1 := templ.GetChildren(ctx)
-                if templ_7745c5c3_Var1 == nil </span><span class="cov0" title="0">{
-                        templ_7745c5c3_Var1 = templ.NopComponent
-                }</span>
-                <span class="cov10" title="123">ctx = templ.ClearChildren(ctx)
-                _, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;div class=\"navbar bg-base-200 shadow-lg border-b border-base-300\"&gt;&lt;div class=\"navbar-start\"&gt;&lt;div class=\"dropdown\"&gt;&lt;div tabindex=\"0\" role=\"button\" class=\"btn btn-ghost lg:hidden\"&gt;&lt;svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-5 w-5\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"&gt;&lt;path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M4 6h16M4 12h8m-8 6h16\"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/div&gt;&lt;ul tabindex=\"0\" class=\"menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-200 rounded-box w-52 border border-base-300\"&gt;&lt;li&gt;&lt;a href=\"/\" class=\"hover:bg-primary hover:text-primary-content\"&gt;Home&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=\"/about\" class=\"hover:bg-primary hover:text-primary-content\"&gt;About&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=\"/stripePage\" class=\"hover:bg-accent hover:text-accent-content\"&gt;Add Minutes&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=\"/stripePage\" class=\"hover:bg-accent hover:text-accent-content\"&gt;Minutes: QUERYFORMINUTESHERE&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;a href=\"/\" class=\"btn btn-ghost text-xl text-primary font-bold\"&gt;goDial&lt;/a&gt;&lt;/div&gt;&lt;div class=\"navbar-center hidden lg:flex\"&gt;&lt;ul class=\"menu menu-horizontal px-1 space-x-2\"&gt;&lt;li&gt;&lt;a href=\"/\" class=\"hover:bg-primary hover:text-primary-content rounded-lg transition-colors\"&gt;Home&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=\"/about\" class=\"hover:bg-primary hover:text-primary-content rounded-lg transition-colors\"&gt;About&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=\"/stripePage\" class=\"hover:bg-accent hover:text-accent-content rounded-lg transition-colors\"&gt;Add Minutes&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;div class=\"navbar-end\"&gt;&lt;a href=\"/login\" class=\"btn btn-primary\"&gt;Login&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;")
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="123">return templ_7745c5c3_Err</span>
-        })
-}
+			func Navbar() templ.Component <span class="cov10" title="143">{
+				return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input
+				templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) </span><span
+				class="cov10" title="143">{
+				templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+				if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil </span><span
+				class="cov0" title="0">{
+				return templ_7745c5c3_CtxErr
+				}</span>
+			<span class="cov10" title="143">templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer :=
+				templruntime.GetBuffer(templ_7745c5c3_W)
+				if !templ_7745c5c3_IsBuffer </span><span class="cov0" title="0">{
+				defer func() </span><span class="cov0" title="0">{
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil </span><span class="cov0" title="0">{
+				templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}</span>
+			}()
+			}
+			<span class="cov10" title="143">ctx = templ.InitializeContext(ctx)
+				templ_7745c5c3_Var1 := templ.GetChildren(ctx)
+				if templ_7745c5c3_Var1 == nil </span><span class="cov0" title="0">{
+				templ_7745c5c3_Var1 = templ.NopComponent
+				}</span>
+			<span class="cov10" title="143">ctx = templ.ClearChildren(ctx)
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;div class=\"navbar
+				bg-base-200 shadow-lg border-b border-base-300\"&gt;&lt;div
+				class=\"navbar-start\"&gt;&lt;div class=\"dropdown\"&gt;&lt;div tabindex=\"0\"
+				role=\"button\" class=\"btn btn-ghost lg:hidden\"&gt;&lt;svg
+				xmlns=\"http://www.w3.org/2000/svg\" class=\"h-5 w-5\" fill=\"none\" viewBox=\"0 0 24
+				24\" stroke=\"currentColor\"&gt;&lt;path stroke-linecap=\"round\"
+				stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M4 6h16M4 12h8m-8
+				6h16\"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/div&gt;&lt;ul tabindex=\"0\" class=\"menu
+				menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-200 rounded-box w-52 border
+				border-base-300\"&gt;&lt;li&gt;&lt;a href=\"/\" class=\"hover:bg-primary
+				hover:text-primary-content\"&gt;Home&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=\"/about\"
+				class=\"hover:bg-primary
+				hover:text-primary-content\"&gt;About&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a
+				href=\"/stripePage\" class=\"hover:bg-accent hover:text-accent-content\"&gt;Add
+				Minutes&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=\"/stripePage\" class=\"hover:bg-accent
+				hover:text-accent-content\"&gt;Minutes:
+				QUERYFORMINUTESHERE&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;a href=\"/\"
+				class=\"btn btn-ghost text-xl text-primary
+				font-bold\"&gt;goDial&lt;/a&gt;&lt;/div&gt;&lt;div class=\"navbar-center hidden
+				lg:flex\"&gt;&lt;ul class=\"menu menu-horizontal px-1 space-x-2\"&gt;&lt;li&gt;&lt;a
+				href=\"/\" class=\"hover:bg-primary hover:text-primary-content rounded-lg
+				transition-colors\"&gt;Home&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=\"/about\"
+				class=\"hover:bg-primary hover:text-primary-content rounded-lg
+				transition-colors\"&gt;About&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=\"/stripePage\"
+				class=\"hover:bg-accent hover:text-accent-content rounded-lg transition-colors\"&gt;Add
+				Minutes&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;div class=\"navbar-end\"&gt;&lt;a
+				href=\"/login\" class=\"btn btn-primary\"&gt;Login&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="143">return templ_7745c5c3_Err</span>
+			})
+			}
 
-func Footer() templ.Component <span class="cov10" title="123">{
-        return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) </span><span class="cov10" title="123">{
-                templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
-                if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_CtxErr
-                }</span>
-                <span class="cov10" title="123">templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
-                if !templ_7745c5c3_IsBuffer </span><span class="cov0" title="0">{
-                        defer func() </span><span class="cov0" title="0">{
-                                templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
-                                if templ_7745c5c3_Err == nil </span><span class="cov0" title="0">{
-                                        templ_7745c5c3_Err = templ_7745c5c3_BufErr
-                                }</span>
-                        }()
-                }
-                <span class="cov10" title="123">ctx = templ.InitializeContext(ctx)
-                templ_7745c5c3_Var2 := templ.GetChildren(ctx)
-                if templ_7745c5c3_Var2 == nil </span><span class="cov0" title="0">{
-                        templ_7745c5c3_Var2 = templ.NopComponent
-                }</span>
-                <span class="cov10" title="123">ctx = templ.ClearChildren(ctx)
-                _, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;footer class=\"footer footer-center p-10 bg-base-200 text-base-content border-t border-base-300 mt-auto\"&gt;&lt;nav class=\"grid grid-flow-col gap-4\"&gt;&lt;a href=\"/about\" class=\"link link-hover hover:text-primary\"&gt;About us&lt;/a&gt; &lt;a href=\"/contact\" class=\"link link-hover hover:text-primary\"&gt;Contact&lt;/a&gt; &lt;a href=\"/privacy\" class=\"link link-hover hover:text-primary\"&gt;Privacy Policy&lt;/a&gt;&lt;/nav&gt;&lt;aside&gt;&lt;p class=\"text-base-content/70\"&gt;Copyright © 2024 - All rights reserved by &lt;span class=\"text-primary font-semibold\"&gt;goDial&lt;/span&gt;&lt;/p&gt;&lt;/aside&gt;&lt;/footer&gt;")
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="123">return templ_7745c5c3_Err</span>
-        })
-}
+			func Footer() templ.Component <span class="cov10" title="143">{
+				return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input
+				templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) </span><span
+				class="cov10" title="143">{
+				templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+				if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil </span><span
+				class="cov0" title="0">{
+				return templ_7745c5c3_CtxErr
+				}</span>
+			<span class="cov10" title="143">templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer :=
+				templruntime.GetBuffer(templ_7745c5c3_W)
+				if !templ_7745c5c3_IsBuffer </span><span class="cov0" title="0">{
+				defer func() </span><span class="cov0" title="0">{
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil </span><span class="cov0" title="0">{
+				templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}</span>
+			}()
+			}
+			<span class="cov10" title="143">ctx = templ.InitializeContext(ctx)
+				templ_7745c5c3_Var2 := templ.GetChildren(ctx)
+				if templ_7745c5c3_Var2 == nil </span><span class="cov0" title="0">{
+				templ_7745c5c3_Var2 = templ.NopComponent
+				}</span>
+			<span class="cov10" title="143">ctx = templ.ClearChildren(ctx)
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;footer class=\"footer
+				footer-center p-10 bg-base-200 text-base-content border-t border-base-300
+				mt-auto\"&gt;&lt;nav class=\"grid grid-flow-col gap-4\"&gt;&lt;a href=\"/about\"
+				class=\"link link-hover hover:text-primary\"&gt;About us&lt;/a&gt; &lt;a
+				href=\"/contact\" class=\"link link-hover hover:text-primary\"&gt;Contact&lt;/a&gt;
+				&lt;a href=\"/privacy\" class=\"link link-hover hover:text-primary\"&gt;Privacy
+				Policy&lt;/a&gt;&lt;/nav&gt;&lt;aside&gt;&lt;p
+				class=\"text-base-content/70\"&gt;Copyright © 2024 - All rights reserved by &lt;span
+				class=\"text-primary
+				font-semibold\"&gt;goDial&lt;/span&gt;&lt;/p&gt;&lt;/aside&gt;&lt;/footer&gt;")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="143">return templ_7745c5c3_Err</span>
+			})
+			}
 
-var _ = templruntime.GeneratedTemplate
-</pre>
-		
+			var _ = templruntime.GeneratedTemplate
+		</pre>
+
 		<pre class="file" id="file13" style="display: none">// Code generated by templ - DO NOT EDIT.
 
-// templ: version: v0.2.793
-package layouts
+			// templ: version: v0.2.793
+			package layouts
 
-//lint:file-ignore SA4006 This context is only used if a nested component is present.
+			//lint:file-ignore SA4006 This context is only used if a nested component is present.
 
-import "github.com/a-h/templ"
-import templruntime "github.com/a-h/templ/runtime"
+			import "github.com/a-h/templ"
+			import templruntime "github.com/a-h/templ/runtime"
 
-import "goDial/internal/templates/components"
+			import "goDial/internal/templates/components"
 
-func App(title string) templ.Component <span class="cov10" title="123">{
-        return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) </span><span class="cov10" title="123">{
-                templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
-                if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_CtxErr
-                }</span>
-                <span class="cov10" title="123">templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
-                if !templ_7745c5c3_IsBuffer </span><span class="cov0" title="0">{
-                        defer func() </span><span class="cov0" title="0">{
-                                templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
-                                if templ_7745c5c3_Err == nil </span><span class="cov0" title="0">{
-                                        templ_7745c5c3_Err = templ_7745c5c3_BufErr
-                                }</span>
-                        }()
-                }
-                <span class="cov10" title="123">ctx = templ.InitializeContext(ctx)
-                templ_7745c5c3_Var1 := templ.GetChildren(ctx)
-                if templ_7745c5c3_Var1 == nil </span><span class="cov0" title="0">{
-                        templ_7745c5c3_Var1 = templ.NopComponent
-                }</span>
-                <span class="cov10" title="123">ctx = templ.ClearChildren(ctx)
-                _, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;!doctype html&gt;&lt;html lang=\"en\" data-theme=\"dark\"&gt;&lt;head&gt;&lt;meta charset=\"UTF-8\"&gt;&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"&gt;&lt;title&gt;")
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="123">var templ_7745c5c3_Var2 string
-                templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(title)
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/layouts/app.templ`, Line: 12, Col: 18}
-                }</span>
-                <span class="cov10" title="123">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="123">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" - goDial&lt;/title&gt;&lt;link href=\"/static/css/output.css\" rel=\"stylesheet\"&gt;&lt;script defer src=\"https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js\"&gt;&lt;/script&gt;&lt;script src=\"https://unpkg.com/htmx.org@2.0.4\"&gt;&lt;/script&gt;&lt;!-- Live reload script for development --&gt;&lt;script&gt;\n        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {\n            let eventSource;\n            let reconnectAttempts = 0;\n            const maxReconnectAttempts = 5;\n            \n            function checkServerHealth() {\n                return fetch('/health', { \n                    method: 'GET',\n                    cache: 'no-cache'\n                })\n                .then(response =&gt; response.ok)\n                .catch(() =&gt; false);\n            }\n            \n            function waitForServerAndReload() {\n                let attempts = 0;\n                const maxAttempts = 30; // 30 seconds max wait\n                \n                function tryReload() {\n                    attempts++;\n                    checkServerHealth().then(isHealthy =&gt; {\n                        if (isHealthy) {\n                            console.log('Server is ready, reloading page...');\n                            window.location.reload();\n                        } else if (attempts &lt; maxAttempts) {\n                            // Server not ready yet, try again in 500ms\n                            setTimeout(tryReload, 500);\n                        } else {\n                            console.log('Server took too long to restart, reloading anyway...');\n                            window.location.reload();\n                        }\n                    });\n                }\n                \n                // Start checking immediately\n                tryReload();\n            }\n            \n            function connectToLiveReload() {\n                eventSource = new EventSource('/live-reload');\n                \n                eventSource.onopen = function() {\n                    console.log('Live reload connected');\n                    reconnectAttempts = 0;\n                };\n                \n                eventSource.onmessage = function(event) {\n                    if (event.data === 'connected') {\n                        console.log('Live reload ready');\n                    } else if (event.data === 'heartbeat') {\n                        // Just a heartbeat, do nothing\n                    }\n                };\n                \n                eventSource.onerror = function() {\n                    console.log('Live reload connection lost, waiting for server restart...');\n                    eventSource.close();\n                    \n                    // When the connection drops, it means the server restarted\n                    // Wait for the server to be healthy before reloading\n                    waitForServerAndReload();\n                };\n            }\n            \n            // Start the connection\n            connectToLiveReload();\n        }\n    &lt;/script&gt;&lt;/head&gt;&lt;body class=\"min-h-screen bg-base-100 text-base-content flex flex-col\"&gt;")
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="123">templ_7745c5c3_Err = components.Navbar().Render(ctx, templ_7745c5c3_Buffer)
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="123">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;main class=\"flex-1\"&gt;")
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="123">templ_7745c5c3_Err = templ_7745c5c3_Var1.Render(ctx, templ_7745c5c3_Buffer)
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="123">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;/main&gt;")
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="123">templ_7745c5c3_Err = components.Footer().Render(ctx, templ_7745c5c3_Buffer)
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="123">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;/body&gt;&lt;/html&gt;")
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="123">return templ_7745c5c3_Err</span>
-        })
-}
+			func App(title string) templ.Component <span class="cov10" title="143">{
+				return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input
+				templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) </span><span
+				class="cov10" title="143">{
+				templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+				if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil </span><span
+				class="cov0" title="0">{
+				return templ_7745c5c3_CtxErr
+				}</span>
+			<span class="cov10" title="143">templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer :=
+				templruntime.GetBuffer(templ_7745c5c3_W)
+				if !templ_7745c5c3_IsBuffer </span><span class="cov0" title="0">{
+				defer func() </span><span class="cov0" title="0">{
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil </span><span class="cov0" title="0">{
+				templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}</span>
+			}()
+			}
+			<span class="cov10" title="143">ctx = templ.InitializeContext(ctx)
+				templ_7745c5c3_Var1 := templ.GetChildren(ctx)
+				if templ_7745c5c3_Var1 == nil </span><span class="cov0" title="0">{
+				templ_7745c5c3_Var1 = templ.NopComponent
+				}</span>
+			<span class="cov10" title="143">ctx = templ.ClearChildren(ctx)
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;!doctype html&gt;&lt;html
+				lang=\"en\" data-theme=\"dark\"&gt;&lt;head&gt;&lt;meta charset=\"UTF-8\"&gt;&lt;meta
+				name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"&gt;&lt;title&gt;")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="143">var templ_7745c5c3_Var2 string
+				templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(title)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ.Error{Err: templ_7745c5c3_Err, FileName:
+				`internal/templates/layouts/app.templ`, Line: 12, Col: 18}
+				}</span>
+			<span class="cov10" title="143">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="143">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" -
+				goDial&lt;/title&gt;&lt;link href=\"/static/css/output.css\"
+				rel=\"stylesheet\"&gt;&lt;script defer
+				src=\"https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js\"&gt;&lt;/script&gt;&lt;script
+				src=\"https://unpkg.com/htmx.org@2.0.4\"&gt;&lt;/script&gt;&lt;!-- Live reload script
+				for development --&gt;&lt;script&gt;\n if (window.location.hostname === 'localhost' ||
+				window.location.hostname === '127.0.0.1') {\n let eventSource;\n let reconnectAttempts =
+				0;\n const maxReconnectAttempts = 5;\n \n function checkServerHealth() {\n return
+				fetch('/health', { \n method: 'GET',\n cache: 'no-cache'\n })\n .then(response =&gt;
+				response.ok)\n .catch(() =&gt; false);\n }\n \n function waitForServerAndReload() {\n
+				let attempts = 0;\n const maxAttempts = 30; // 30 seconds max wait\n \n function
+				tryReload() {\n attempts++;\n checkServerHealth().then(isHealthy =&gt; {\n if
+				(isHealthy) {\n console.log('Server is ready, reloading page...');\n
+				window.location.reload();\n } else if (attempts &lt; maxAttempts) {\n // Server not
+				ready yet, try again in 500ms\n setTimeout(tryReload, 500);\n } else {\n
+				console.log('Server took too long to restart, reloading anyway...');\n
+				window.location.reload();\n }\n });\n }\n \n // Start checking immediately\n
+				tryReload();\n }\n \n function connectToLiveReload() {\n eventSource = new
+				EventSource('/live-reload');\n \n eventSource.onopen = function() {\n console.log('Live
+				reload connected');\n reconnectAttempts = 0;\n };\n \n eventSource.onmessage =
+				function(event) {\n if (event.data === 'connected') {\n console.log('Live reload
+				ready');\n } else if (event.data === 'heartbeat') {\n // Just a heartbeat, do nothing\n
+				}\n };\n \n eventSource.onerror = function() {\n console.log('Live reload connection
+				lost, waiting for server restart...');\n eventSource.close();\n \n // When the
+				connection drops, it means the server restarted\n // Wait for the server to be healthy
+				before reloading\n waitForServerAndReload();\n };\n }\n \n // Start the connection\n
+				connectToLiveReload();\n }\n &lt;/script&gt;&lt;/head&gt;&lt;body class=\"min-h-screen
+				bg-base-100 text-base-content flex flex-col\"&gt;")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="143">templ_7745c5c3_Err = components.Navbar().Render(ctx,
+				templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="143">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString("&lt;main class=\"flex-1\"&gt;")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="143">templ_7745c5c3_Err = templ_7745c5c3_Var1.Render(ctx,
+				templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="143">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString("&lt;/main&gt;")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="143">templ_7745c5c3_Err = components.Footer().Render(ctx,
+				templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="143">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString("&lt;/body&gt;&lt;/html&gt;")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="143">return templ_7745c5c3_Err</span>
+			})
+			}
 
-var _ = templruntime.GeneratedTemplate
-</pre>
-		
+			var _ = templruntime.GeneratedTemplate
+		</pre>
+
 		<pre class="file" id="file14" style="display: none">// Code generated by templ - DO NOT EDIT.
 
-// templ: version: v0.2.793
-package pages
+			// templ: version: v0.2.793
+			package pages
 
-//lint:file-ignore SA4006 This context is only used if a nested component is present.
+			//lint:file-ignore SA4006 This context is only used if a nested component is present.
 
-import "github.com/a-h/templ"
-import templruntime "github.com/a-h/templ/runtime"
+			import "github.com/a-h/templ"
+			import templruntime "github.com/a-h/templ/runtime"
 
-import (
-        "goDial/internal/templates/components"
-        "goDial/internal/templates/layouts"
-)
+			import (
+			"goDial/internal/templates/components"
+			"goDial/internal/templates/layouts"
+			)
 
-func Home() templ.Component <span class="cov10" title="121">{
-        return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) </span><span class="cov10" title="121">{
-                templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
-                if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_CtxErr
-                }</span>
-                <span class="cov10" title="121">templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
-                if !templ_7745c5c3_IsBuffer </span><span class="cov10" title="121">{
-                        defer func() </span><span class="cov10" title="121">{
-                                templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
-                                if templ_7745c5c3_Err == nil </span><span class="cov10" title="121">{
-                                        templ_7745c5c3_Err = templ_7745c5c3_BufErr
-                                }</span>
-                        }()
-                }
-                <span class="cov10" title="121">ctx = templ.InitializeContext(ctx)
-                templ_7745c5c3_Var1 := templ.GetChildren(ctx)
-                if templ_7745c5c3_Var1 == nil </span><span class="cov0" title="0">{
-                        templ_7745c5c3_Var1 = templ.NopComponent
-                }</span>
-                <span class="cov10" title="121">ctx = templ.ClearChildren(ctx)
-                templ_7745c5c3_Var2 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) </span><span class="cov10" title="121">{
-                        templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
-                        templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
-                        if !templ_7745c5c3_IsBuffer </span><span class="cov0" title="0">{
-                                defer func() </span><span class="cov0" title="0">{
-                                        templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
-                                        if templ_7745c5c3_Err == nil </span><span class="cov0" title="0">{
-                                                templ_7745c5c3_Err = templ_7745c5c3_BufErr
-                                        }</span>
-                                }()
-                        }
-                        <span class="cov10" title="121">ctx = templ.InitializeContext(ctx)
-                        _, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;!-- Hero Section --&gt; &lt;section class=\"hero min-h-[80vh] bg-gradient-to-br from-base-200 to-base-300\"&gt;&lt;div class=\"hero-content text-center\"&gt;&lt;div class=\"max-w-4xl\"&gt;&lt;h1 class=\"text-5xl md:text-7xl font-bold text-primary mb-6\"&gt;Welcome to &lt;span class=\"text-accent\"&gt;goDial&lt;/span&gt;&lt;/h1&gt;&lt;div class=\"flex flex-col gap-4 justify-center\"&gt;")
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ_7745c5c3_Err
-                        }</span>
-                        <span class="cov10" title="121">templ_7745c5c3_Err = components.Input("Recipient Phone Number: ", "text", "recipientPhoneNumber", "phone number ex: 3336664444").Render(ctx, templ_7745c5c3_Buffer)
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ_7745c5c3_Err
-                        }</span>
-                        <span class="cov10" title="121">templ_7745c5c3_Err = components.Input("Recipient Name &amp; Info About Them: ", "text", "recipientContext", "name, details the ai agent may want to know about them").Render(ctx, templ_7745c5c3_Buffer)
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ_7745c5c3_Err
-                        }</span>
-                        <span class="cov10" title="121">templ_7745c5c3_Err = components.Input("Objective:", "text", "objective", "Call them and say happy birthday for me!").Render(ctx, templ_7745c5c3_Buffer)
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ_7745c5c3_Err
-                        }</span>
-                        <span class="cov10" title="121">templ_7745c5c3_Err = components.Input("Other Context:", "text", "otherContext", "her birthday is 10/11/1992. We met in middle school, etc..").Render(ctx, templ_7745c5c3_Buffer)
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ_7745c5c3_Err
-                        }</span>
-                        <span class="cov10" title="121">templ_7745c5c3_Err = components.Button("Begin...", "/beginCallProcedure", true, true).Render(ctx, templ_7745c5c3_Buffer)
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ_7745c5c3_Err
-                        }</span>
-                        <span class="cov10" title="121">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/section&gt;&lt;!-- Features Section --&gt; &lt;section class=\"py-20 bg-base-100\"&gt;&lt;div class=\"container mx-auto px-4\"&gt;&lt;div class=\"text-center mb-16\"&gt;&lt;h2 class=\"text-4xl font-bold text-primary mb-4\"&gt;Get Started&lt;/h2&gt;&lt;p class=\"text-xl text-base-content/70 max-w-2xl mx-auto\"&gt;Choose from our quick actions to get started with goDial&lt;/p&gt;&lt;/div&gt;&lt;div class=\"grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto\"&gt;")
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ_7745c5c3_Err
-                        }</span>
-                        <span class="cov10" title="121">templ_7745c5c3_Err = components.Card("Quick Message").Render(ctx, templ_7745c5c3_Buffer)
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ_7745c5c3_Err
-                        }</span>
-                        <span class="cov10" title="121">templ_7745c5c3_Err = components.Card("Send Feedback").Render(ctx, templ_7745c5c3_Buffer)
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ_7745c5c3_Err
-                        }</span>
-                        <span class="cov10" title="121">templ_7745c5c3_Err = components.Card("Contact Us").Render(ctx, templ_7745c5c3_Buffer)
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ_7745c5c3_Err
-                        }</span>
-                        <span class="cov10" title="121">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;/div&gt;&lt;/div&gt;&lt;/section&gt;")
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ_7745c5c3_Err
-                        }</span>
-                        <span class="cov10" title="121">return templ_7745c5c3_Err</span>
-                })
-                <span class="cov10" title="121">templ_7745c5c3_Err = layouts.App("goDial | Home").Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="121">return templ_7745c5c3_Err</span>
-        })
-}
+			func Home() templ.Component <span class="cov10" title="121">{
+				return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input
+				templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) </span><span
+				class="cov10" title="121">{
+				templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+				if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil </span><span
+				class="cov0" title="0">{
+				return templ_7745c5c3_CtxErr
+				}</span>
+			<span class="cov10" title="121">templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer :=
+				templruntime.GetBuffer(templ_7745c5c3_W)
+				if !templ_7745c5c3_IsBuffer </span><span class="cov10" title="121">{
+				defer func() </span><span class="cov10" title="121">{
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil </span><span class="cov10" title="121">{
+				templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}</span>
+			}()
+			}
+			<span class="cov10" title="121">ctx = templ.InitializeContext(ctx)
+				templ_7745c5c3_Var1 := templ.GetChildren(ctx)
+				if templ_7745c5c3_Var1 == nil </span><span class="cov0" title="0">{
+				templ_7745c5c3_Var1 = templ.NopComponent
+				}</span>
+			<span class="cov10" title="121">ctx = templ.ClearChildren(ctx)
+				templ_7745c5c3_Var2 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input
+				templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) </span><span
+				class="cov10" title="121">{
+				templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+				templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer :=
+				templruntime.GetBuffer(templ_7745c5c3_W)
+				if !templ_7745c5c3_IsBuffer </span><span class="cov0" title="0">{
+				defer func() </span><span class="cov0" title="0">{
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil </span><span class="cov0" title="0">{
+				templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}</span>
+			}()
+			}
+			<span class="cov10" title="121">ctx = templ.InitializeContext(ctx)
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;!-- Hero Section --&gt;
+				&lt;section class=\"hero min-h-[80vh] bg-gradient-to-br from-base-200
+				to-base-300\"&gt;&lt;div class=\"hero-content text-center\"&gt;&lt;div
+				class=\"max-w-4xl\"&gt;&lt;h1 class=\"text-5xl md:text-7xl font-bold text-primary
+				mb-6\"&gt;Welcome to &lt;span
+				class=\"text-accent\"&gt;goDial&lt;/span&gt;&lt;/h1&gt;&lt;div class=\"flex flex-col
+				gap-4 justify-center\"&gt;")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="121">templ_7745c5c3_Err = components.Input("Recipient Phone Number:
+				", "text", "recipientPhoneNumber", "phone number ex: 3336664444").Render(ctx,
+				templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="121">templ_7745c5c3_Err = components.Input("Recipient Name &amp; Info
+				About Them: ", "text", "recipientContext", "name, details the ai agent may want to know
+				about them").Render(ctx, templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="121">templ_7745c5c3_Err = components.Input("Objective:", "text",
+				"objective", "Call them and say happy birthday for me!").Render(ctx,
+				templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="121">templ_7745c5c3_Err = components.Input("Other Context:", "text",
+				"otherContext", "her birthday is 10/11/1992. We met in middle school,
+				etc..").Render(ctx, templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="121">templ_7745c5c3_Err = components.Button("Begin...",
+				"/beginCallProcedure", true, true, "").Render(ctx, templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="121">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString("&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/section&gt;&lt;!--
+				Features Section --&gt; &lt;section class=\"py-20 bg-base-100\"&gt;&lt;div
+				class=\"container mx-auto px-4\"&gt;&lt;div class=\"text-center mb-16\"&gt;&lt;h2
+				class=\"text-4xl font-bold text-primary mb-4\"&gt;Get Started&lt;/h2&gt;&lt;p
+				class=\"text-xl text-base-content/70 max-w-2xl mx-auto\"&gt;Choose from our quick
+				actions to get started with goDial&lt;/p&gt;&lt;/div&gt;&lt;div class=\"grid grid-cols-1
+				md:grid-cols-3 gap-8 max-w-6xl mx-auto\"&gt;")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="121">templ_7745c5c3_Err = components.Card("Quick
+				Message").Render(ctx, templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="121">templ_7745c5c3_Err = components.Card("Send
+				Feedback").Render(ctx, templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="121">templ_7745c5c3_Err = components.Card("Contact Us").Render(ctx,
+				templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="121">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString("&lt;/div&gt;&lt;/div&gt;&lt;/section&gt;")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="121">return templ_7745c5c3_Err</span>
+			})
+			<span class="cov10" title="121">templ_7745c5c3_Err = layouts.App("goDial |
+				Home").Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="121">return templ_7745c5c3_Err</span>
+			})
+			}
 
-var _ = templruntime.GeneratedTemplate
-</pre>
-		
+			var _ = templruntime.GeneratedTemplate
+		</pre>
+
 		<pre class="file" id="file15" style="display: none">// Code generated by templ - DO NOT EDIT.
 
-// templ: version: v0.2.793
-package pages
+			// templ: version: v0.2.793
+			package pages
 
-//lint:file-ignore SA4006 This context is only used if a nested component is present.
+			//lint:file-ignore SA4006 This context is only used if a nested component is present.
 
-import "github.com/a-h/templ"
-import templruntime "github.com/a-h/templ/runtime"
+			import "github.com/a-h/templ"
+			import templruntime "github.com/a-h/templ/runtime"
 
-import (
-        "fmt"
-        "goDial/internal/templates/components"
-        "goDial/internal/templates/layouts"
-)
+			import (
+			"fmt"
+			"goDial/internal/templates/components"
+			"goDial/internal/templates/layouts"
+			)
 
-func Stripe(userMinutes int) templ.Component <span class="cov10" title="2">{
-        return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) </span><span class="cov10" title="2">{
-                templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
-                if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_CtxErr
-                }</span>
-                <span class="cov10" title="2">templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
-                if !templ_7745c5c3_IsBuffer </span><span class="cov10" title="2">{
-                        defer func() </span><span class="cov10" title="2">{
-                                templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
-                                if templ_7745c5c3_Err == nil </span><span class="cov10" title="2">{
-                                        templ_7745c5c3_Err = templ_7745c5c3_BufErr
-                                }</span>
-                        }()
-                }
-                <span class="cov10" title="2">ctx = templ.InitializeContext(ctx)
-                templ_7745c5c3_Var1 := templ.GetChildren(ctx)
-                if templ_7745c5c3_Var1 == nil </span><span class="cov0" title="0">{
-                        templ_7745c5c3_Var1 = templ.NopComponent
-                }</span>
-                <span class="cov10" title="2">ctx = templ.ClearChildren(ctx)
-                templ_7745c5c3_Var2 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) </span><span class="cov10" title="2">{
-                        templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
-                        templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
-                        if !templ_7745c5c3_IsBuffer </span><span class="cov0" title="0">{
-                                defer func() </span><span class="cov0" title="0">{
-                                        templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
-                                        if templ_7745c5c3_Err == nil </span><span class="cov0" title="0">{
-                                                templ_7745c5c3_Err = templ_7745c5c3_BufErr
-                                        }</span>
-                                }()
-                        }
-                        <span class="cov10" title="2">ctx = templ.InitializeContext(ctx)
-                        _, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;!-- Hero Section --&gt; &lt;section class=\"hero min-h-[60vh] bg-gradient-to-br from-base-200 to-base-300\"&gt;&lt;!-- hi --&gt;&lt;div class=\"hero-content text-center\"&gt;&lt;div class=\"max-w-4xl\"&gt;&lt;h1 class=\"text-4xl md:text-6xl font-bold text-primary mb-6\"&gt;&lt;span class=\"text-accent\"&gt;Stripe&lt;/span&gt; Payments&lt;/h1&gt;&lt;div class=\"bg-base-200 rounded-2xl p-8 border border-base-300 shadow-xl mb-8\"&gt;&lt;p class=\"text-lg text-base-content/80 mb-4\"&gt;Pay here for minutes. When your minutes hit 0, the AI will hang up a call, and be unable to add more until more minutes are added.&lt;/p&gt;&lt;p class=\"text-base text-base-content/70 mb-6\"&gt;Purchase minutes in increments of 10, @ a rate of $0.50 / minute.&lt;/p&gt;&lt;div class=\"stat bg-primary/10 rounded-xl border border-primary/20\"&gt;&lt;div class=\"stat-title text-primary\"&gt;Minutes Remaining&lt;/div&gt;&lt;div class=\"stat-value text-primary\"&gt;")
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ_7745c5c3_Err
-                        }</span>
-                        <span class="cov10" title="2">var templ_7745c5c3_Var3 string
-                        templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprint(userMinutes))
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/templates/pages/stripe.templ`, Line: 29, Col: 67}
-                        }</span>
-                        <span class="cov10" title="2">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ_7745c5c3_Err
-                        }</span>
-                        <span class="cov10" title="2">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;/div&gt;&lt;div class=\"stat-desc text-primary/70\"&gt;Available for calls&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/section&gt;&lt;!-- Payment Form --&gt; &lt;section class=\"py-16 bg-base-100\"&gt;&lt;div class=\"container mx-auto px-4 max-w-2xl\"&gt;&lt;div class=\"card bg-base-200 shadow-2xl border border-base-300\"&gt;&lt;div class=\"card-body\"&gt;&lt;h2 class=\"card-title text-2xl text-primary mb-6 justify-center\"&gt;Purchase Minutes&lt;/h2&gt;&lt;form class=\"space-y-6\" x-data=\"{quantity: 0, price: 5, get total() {return this.quantity * this.price}}\"&gt;&lt;div class=\"form-control\"&gt;&lt;label class=\"label\"&gt;&lt;span class=\"label-text text-lg font-semibold\"&gt;Select Minutes:&lt;/span&gt;&lt;/label&gt;&lt;div class=\"flex items-center justify-center space-x-6 bg-base-100 rounded-xl p-6 border border-base-300\"&gt;&lt;button type=\"button\" @click=\"quantity = Math.max(0, quantity - 10)\" class=\"btn btn-circle btn-outline btn-primary\"&gt;&lt;svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-6 w-6\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"&gt;&lt;path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M20 12H4\"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/button&gt;&lt;div class=\"text-center\"&gt;&lt;div class=\"text-3xl font-bold text-primary\" x-text=\"quantity\"&gt;&lt;/div&gt;&lt;div class=\"text-sm text-base-content/70\"&gt;minutes&lt;/div&gt;&lt;/div&gt;&lt;button type=\"button\" @click=\"quantity+=10\" class=\"btn btn-circle btn-primary\"&gt;&lt;svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-6 w-6\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"&gt;&lt;path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M12 6v6m0 0v6m0-6h6m-6 0H6\"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=\"divider\"&gt;&lt;/div&gt;&lt;div class=\"bg-accent/10 rounded-xl p-6 border border-accent/20\"&gt;&lt;div class=\"flex justify-between items-center\"&gt;&lt;span class=\"text-lg font-semibold\"&gt;Total Price:&lt;/span&gt; &lt;span class=\"text-2xl font-bold text-accent\" x-text=\"&amp;#39;$&amp;#39; + (quantity * 0.5).toFixed(2)\"&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=\"card-actions justify-center\"&gt;&lt;button type=\"submit\" class=\"btn btn-accent btn-lg w-full\"&gt;Purchase Minutes&lt;/button&gt;&lt;/div&gt;&lt;/form&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/section&gt;&lt;!-- Additional Features --&gt; &lt;section class=\"py-16 bg-base-200\"&gt;&lt;div class=\"container mx-auto px-4\"&gt;&lt;div class=\"text-center mb-12\"&gt;&lt;h2 class=\"text-3xl font-bold text-primary mb-4\"&gt;More Actions&lt;/h2&gt;&lt;/div&gt;&lt;div class=\"grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto\"&gt;")
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ_7745c5c3_Err
-                        }</span>
-                        <span class="cov10" title="2">templ_7745c5c3_Err = components.SimpleCard("Quick Message").Render(ctx, templ_7745c5c3_Buffer)
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ_7745c5c3_Err
-                        }</span>
-                        <span class="cov10" title="2">templ_7745c5c3_Err = components.SimpleCard("Send Feedback").Render(ctx, templ_7745c5c3_Buffer)
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ_7745c5c3_Err
-                        }</span>
-                        <span class="cov10" title="2">templ_7745c5c3_Err = components.SimpleCard("Contact Us").Render(ctx, templ_7745c5c3_Buffer)
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ_7745c5c3_Err
-                        }</span>
-                        <span class="cov10" title="2">_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;/div&gt;&lt;/div&gt;&lt;/section&gt;")
-                        if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                                return templ_7745c5c3_Err
-                        }</span>
-                        <span class="cov10" title="2">return templ_7745c5c3_Err</span>
-                })
-                <span class="cov10" title="2">templ_7745c5c3_Err = layouts.App("goDial | Stripe").Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
-                if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
-                        return templ_7745c5c3_Err
-                }</span>
-                <span class="cov10" title="2">return templ_7745c5c3_Err</span>
-        })
-}
+			func Stripe(userMinutes int) templ.Component <span class="cov10" title="22">{
+				return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input
+				templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) </span><span
+				class="cov10" title="22">{
+				templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+				if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil </span><span
+				class="cov0" title="0">{
+				return templ_7745c5c3_CtxErr
+				}</span>
+			<span class="cov10" title="22">templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer :=
+				templruntime.GetBuffer(templ_7745c5c3_W)
+				if !templ_7745c5c3_IsBuffer </span><span class="cov10" title="22">{
+				defer func() </span><span class="cov10" title="22">{
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil </span><span class="cov10" title="22">{
+				templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}</span>
+			}()
+			}
+			<span class="cov10" title="22">ctx = templ.InitializeContext(ctx)
+				templ_7745c5c3_Var1 := templ.GetChildren(ctx)
+				if templ_7745c5c3_Var1 == nil </span><span class="cov0" title="0">{
+				templ_7745c5c3_Var1 = templ.NopComponent
+				}</span>
+			<span class="cov10" title="22">ctx = templ.ClearChildren(ctx)
+				templ_7745c5c3_Var2 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input
+				templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) </span><span
+				class="cov10" title="22">{
+				templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+				templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer :=
+				templruntime.GetBuffer(templ_7745c5c3_W)
+				if !templ_7745c5c3_IsBuffer </span><span class="cov0" title="0">{
+				defer func() </span><span class="cov0" title="0">{
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil </span><span class="cov0" title="0">{
+				templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}</span>
+			}()
+			}
+			<span class="cov10" title="22">ctx = templ.InitializeContext(ctx)
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("&lt;!-- Hero Section --&gt;
+				&lt;section class=\"hero min-h-[60vh] bg-gradient-to-br from-base-200
+				to-base-300\"&gt;&lt;!-- hi --&gt;&lt;div class=\"hero-content text-center\"&gt;&lt;div
+				class=\"max-w-4xl\"&gt;&lt;h1 class=\"text-4xl md:text-6xl font-bold text-primary
+				mb-6\"&gt;&lt;span class=\"text-accent\"&gt;Stripe&lt;/span&gt;
+				Payments&lt;/h1&gt;&lt;div class=\"bg-base-200 rounded-2xl p-8 border border-base-300
+				shadow-xl mb-8\"&gt;&lt;p class=\"text-lg text-base-content/80 mb-4\"&gt;Pay here for
+				minutes. When your minutes hit 0, the AI will hang up a call, and be unable to add more
+				until more minutes are added.&lt;/p&gt;&lt;p class=\"text-base text-base-content/70
+				mb-6\"&gt;Purchase minutes in increments of 10, @ a rate of $0.50 /
+				minute.&lt;/p&gt;&lt;div class=\"stat bg-primary/10 rounded-xl border
+				border-primary/20\"&gt;&lt;div class=\"stat-title text-primary\"&gt;Minutes
+				Remaining&lt;/div&gt;&lt;div class=\"stat-value text-primary\"&gt;")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="22">var templ_7745c5c3_Var3 string
+				templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprint(userMinutes))
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ.Error{Err: templ_7745c5c3_Err, FileName:
+				`internal/templates/pages/stripe.templ`, Line: 29, Col: 67}
+				}</span>
+			<span class="cov10" title="22">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="22">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString("&lt;/div&gt;&lt;div class=\"stat-desc
+				text-primary/70\"&gt;Available for
+				calls&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/section&gt;&lt;!--
+				Payment Form --&gt; &lt;section class=\"py-16 bg-base-100\"&gt;&lt;div class=\"container
+				mx-auto px-4 max-w-2xl\"&gt;&lt;div class=\"card bg-base-200 shadow-2xl border
+				border-base-300\"&gt;&lt;div class=\"card-body\"&gt;&lt;h2 class=\"card-title text-2xl
+				text-primary mb-6 justify-center\"&gt;Purchase Minutes&lt;/h2&gt;&lt;form
+				class=\"space-y-6\" x-data=\"{quantity: 0, price: 5, get total() {return this.quantity *
+				this.price}}\"&gt;&lt;div class=\"form-control\"&gt;&lt;label
+				class=\"label\"&gt;&lt;span class=\"label-text text-lg font-semibold\"&gt;Select
+				Minutes:&lt;/span&gt;&lt;/label&gt;&lt;div class=\"flex items-center justify-center
+				space-x-6 bg-base-100 rounded-xl p-6 border border-base-300\"&gt;&lt;button
+				type=\"button\" @click=\"quantity = Math.max(0, quantity - 10)\" class=\"btn btn-circle
+				btn-outline btn-primary\"&gt;&lt;svg xmlns=\"http://www.w3.org/2000/svg\" class=\"h-6
+				w-6\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"&gt;&lt;path
+				stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M20
+				12H4\"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/button&gt;&lt;div
+				class=\"text-center\"&gt;&lt;div class=\"text-3xl font-bold text-primary\"
+				x-text=\"quantity\"&gt;&lt;/div&gt;&lt;div class=\"text-sm
+				text-base-content/70\"&gt;minutes&lt;/div&gt;&lt;/div&gt;&lt;button type=\"button\"
+				@click=\"quantity+=10\" class=\"btn btn-circle btn-primary\"&gt;&lt;svg
+				xmlns=\"http://www.w3.org/2000/svg\" class=\"h-6 w-6\" fill=\"none\" viewBox=\"0 0 24
+				24\" stroke=\"currentColor\"&gt;&lt;path stroke-linecap=\"round\"
+				stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M12 6v6m0 0v6m0-6h6m-6
+				0H6\"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;div
+				class=\"divider\"&gt;&lt;/div&gt;&lt;div class=\"bg-accent/10 rounded-xl p-6 border
+				border-accent/20\"&gt;&lt;div class=\"flex justify-between items-center\"&gt;&lt;span
+				class=\"text-lg font-semibold\"&gt;Total Price:&lt;/span&gt; &lt;span class=\"text-2xl
+				font-bold text-accent\" x-text=\"&amp;#39;$&amp;#39; + (quantity *
+				0.5).toFixed(2)\"&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=\"card-actions
+				justify-center\"&gt;&lt;button type=\"submit\" class=\"btn btn-accent btn-lg
+				w-full\"&gt;Purchase
+				Minutes&lt;/button&gt;&lt;/div&gt;&lt;/form&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/section&gt;&lt;!--
+				Additional Features --&gt; &lt;section class=\"py-16 bg-base-200\"&gt;&lt;div
+				class=\"container mx-auto px-4\"&gt;&lt;div class=\"text-center mb-12\"&gt;&lt;h2
+				class=\"text-3xl font-bold text-primary mb-4\"&gt;More
+				Actions&lt;/h2&gt;&lt;/div&gt;&lt;div class=\"grid grid-cols-1 md:grid-cols-3 gap-8
+				max-w-4xl mx-auto\"&gt;")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="22">templ_7745c5c3_Err = components.SimpleCard("Quick
+				Message").Render(ctx, templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="22">templ_7745c5c3_Err = components.SimpleCard("Send
+				Feedback").Render(ctx, templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="22">templ_7745c5c3_Err = components.SimpleCard("Contact
+				Us").Render(ctx, templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="22">_, templ_7745c5c3_Err =
+				templ_7745c5c3_Buffer.WriteString("&lt;/div&gt;&lt;/div&gt;&lt;/section&gt;")
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="22">return templ_7745c5c3_Err</span>
+			})
+			<span class="cov10" title="22">templ_7745c5c3_Err = layouts.App("goDial |
+				Stripe").Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil </span><span class="cov0" title="0">{
+				return templ_7745c5c3_Err
+				}</span>
+			<span class="cov10" title="22">return templ_7745c5c3_Err</span>
+			})
+			}
 
-var _ = templruntime.GeneratedTemplate
-</pre>
-		
-		</div>
-	</body>
-	<script>
-	(function() {
+			var _ = templruntime.GeneratedTemplate
+		</pre>
+
+	</div>
+</body>
+<script>
+	(function () {
 		var files = document.getElementById('files');
 		var visible;
 		files.addEventListener('change', onChange, false);
@@ -1609,5 +1969,6 @@ var _ = templruntime.GeneratedTemplate
 			select("file0");
 		}
 	})();
-	</script>
+</script>
+
 </html>

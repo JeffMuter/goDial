@@ -46,7 +46,7 @@ func Home() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!-- Hero Section --> <section class=\"hero min-h-[80vh] bg-gradient-to-br from-base-200 to-base-300\"><div class=\"hero-content text-center\"><div class=\"max-w-4xl\"><h1 class=\"text-5xl md:text-7xl font-bold text-primary mb-6\">Welcome to <span class=\"text-accent\">goDial</span></h1><div class=\"flex flex-col gap-4 justify-center\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!-- Hero Section --> <section class=\"hero min-h-[80vh] bg-gradient-to-br from-base-200 to-base-300\"><div class=\"hero-content text-center\"><div class=\"max-w-4xl\"><h1 class=\"text-5xl md:text-7xl font-bold text-primary mb-6\">Welcome to <span class=\"text-accent\">goDial</span></h1><form onsubmit=\"/beginCallProcedure\" class=\"flex flex-col gap-4 justify-center\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -66,11 +66,11 @@ func Home() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = components.Button("Begin...", "/beginCallProcedure", true, true).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = components.Button("Begin...", "/beginCallProcedure", true, false, "submit").Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div></div></section><!-- Features Section --> <section class=\"py-20 bg-base-100\"><div class=\"container mx-auto px-4\"><div class=\"text-center mb-16\"><h2 class=\"text-4xl font-bold text-primary mb-4\">Get Started</h2><p class=\"text-xl text-base-content/70 max-w-2xl mx-auto\">Choose from our quick actions to get started with goDial</p></div><div class=\"grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</form></div></div></section><!-- Features Section --> <section class=\"py-20 bg-base-100\"><div class=\"container mx-auto px-4\"><div class=\"text-center mb-16\"><h2 class=\"text-4xl font-bold text-primary mb-4\">Get Started</h2><p class=\"text-xl text-base-content/70 max-w-2xl mx-auto\">Choose from our quick actions to get started with goDial</p></div><div class=\"grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

@@ -1,6 +1,6 @@
 package components
 
-templ Button(text string, route string, isPrimary bool, isNewTab bool) {
+templ Button(text string, route string, isPrimary bool, isNewTab bool, btnType string) {
     if route != "" {
         if isNewTab {
             <a 
@@ -30,6 +30,7 @@ templ Button(text string, route string, isPrimary bool, isNewTab bool) {
         }
     } else {
         <button 
+            type={ btnType }
             class={ 
                 "btn transition-all duration-200 hover:scale-105", 
                 templ.KV("bg-primary", isPrimary),

@@ -14,14 +14,14 @@ templ Home() {
             <h1 class="text-5xl md:text-7xl font-bold text-primary mb-6">
                 Welcome to <span class="text-accent">goDial</span>
             </h1>
-            <div class="flex flex-col gap-4 justify-center">
+            <form onsubmit="/beginCallProcedure" class="flex flex-col gap-4 justify-center">
                 @components.Input("Recipient Phone Number: ", "text", "recipientPhoneNumber", "phone number ex: 3336664444")
                 @components.Input("Recipient Name & Info About Them: ", "text", "recipientContext", "name, details the ai agent may want to know about them")
                 @components.Input("Objective:", "text", "objective", "Call them and say happy birthday for me!")
                 @components.Input("Other Context:", "text", "otherContext", "her birthday is 10/11/1992. We met in middle school, etc..")
 
-                @components.Button("Begin...", "/beginCallProcedure", true, true)
-            </div>
+                @components.Button("Begin...", "/beginCallProcedure", true, false, "submit")
+            </form>
         </div>
     </div>
 </section>
