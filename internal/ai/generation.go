@@ -69,5 +69,5 @@ func CheckPromptValidity(userPrompt string) (string, error) {
 				"anthropic has detected that for some reason, the request was invalid... see here: %s\n", resp,
 			)
 	}
-	return "", nil
+	return resp, nil
 }

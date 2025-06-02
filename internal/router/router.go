@@ -2,6 +2,7 @@ package router
 
 import (
 	"fmt"
+	"goDial/internal/calls"
 	"goDial/internal/database"
 	"net/http"
 	"os"
@@ -24,6 +25,9 @@ func NewRouter(db *database.DB) http.Handler {
 	// Routes
 	mux.HandleFunc("/", handleHomePage)
 	mux.HandleFunc("/stripePage", handleStripePage(db))
+
+	// call related handlers
+	mux.HandleFunc("/handleCallProcedure", calls.HandleCallProcedure)
 
 	return mux
 }
